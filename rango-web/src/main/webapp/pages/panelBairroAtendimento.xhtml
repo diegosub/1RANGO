@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+					  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:a4j="http://richfaces.org/a4j"
+				xmlns:rich="http://richfaces.org/rich"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:t="http://myfaces.apache.org/tomahawk"
+				xmlns:mj="http://mojarra.dev.java.net/mojarra_ext">
+	
+	<h:panelGroup id="panelBairroAtendimento">
+	
+		<div class="form-group">
+          	<label class="col-sm-2 control-label">Estado *</label>
+            <div class="col-sm-5">
+            	<h:selectOneMenu value="#{crudBean.idEstado}" styleClass="form-control" converter="simpleIndexConverter" disabled="#{crudBean.viewing}">			                        								
+					<t:selectItems var="i" itemValue="#{i.idEstado}" itemLabel="#{i.dsEstado}" value="#{crudBean.listaEstado}" />
+					<a4j:ajax event="change" render="pnlCidade" listener="#{crudBean.popularCidade}"/>
+				</h:selectOneMenu>
+              </div>
+        </div>
+               
+        <h:panelGroup id="pnlCidade">
+        	<div class="form-group">
+	            <label class="col-sm-2 control-label">Cidade *</label>
+	            <div class="col-sm-5">
+	            	<h:selectOneMenu value="#{crudBean.idCidade}" styleClass="form-control" converter="simpleIndexConverter" disabled="#{crudBean.viewing}">			                        								
+						<t:selectItems var="i" itemValue="#{i.idCidade}" itemLabel="#{i.dsCidade}" value="#{crudBean.listaCidade}" />
+					</h:selectOneMenu>
+	            </div>
+	            
+	            <a4j:commandButton image="../images/add.png" id="consultar" style="margin-top: 8px; border:none; width: 40px; height: 23px; vertical-align: middle; padding-left:15px;" title="ADICIONAR" actionListener="#{crudBean.adicionarCidade}" render="tabela"/>
+				
+	        </div>
+        </h:panelGroup>
+                
+        	
+		<h:panelGrid id="tabela" layout="block" style="width: 100%; height: 100%;z" >
+			<f:subview id="viewListagem">
+				<div class="box-content">
+					<rich:dataTable id="tblData" 
+								 value="#{crudBean.listaCidadeBairro}" 
+							       var="rst" rows="10"
+							styleClass="table table-bordered table-striped dataTable"
+							onrowmouseover="this.style.cursor='default';this.style.backgroundColor='#FFF8DC';" 
+							onrowmouseout="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+							  rendered="#{not empty crudBean.listaCidadeBairro}">						     
+						<f:facet name="header">
+							<rich:columnGroup>
+								<rich:column style="text-align: center;" colspan="3">
+									Bairros por Cidade
+								</rich:column>
+								<rich:column style="text-align: center; width: 3%;"/>
+							</rich:columnGroup>
+						</f:facet>
+						<rich:column style="text-align: left;" colspan="3">
+							<b>
+							<rich:collapsibleSubTableToggler for="subTbl" />
+							<h:outputText value="#{rst.estado.dsEstado}" />
+							<h:outputText value=" - " />
+							<h:outputText value="#{rst.dsCidade}" />
+							</b>
+						</rich:column>
+						<rich:column style="text-align: left; width: 3%;">
+							<a4j:commandButton image="../images/remove.png" style="border:none; width: 20px; height: 20px;" title="REMOVER" action="#{crudBean.removerCidade}" render="tabela" onclick="if (!confirm('Deseja realmente remover este registro?')) return false">
+								<f:setPropertyActionListener target="#{crudBean.cidade}" value="#{rst}" />
+							</a4j:commandButton>
+						</rich:column>
+						
+						<rich:collapsibleSubTable value="#{rst.listaBairro}" var="item" id="subTbl" expandMode="client">
+			                <rich:column colspan="2" style="padding-left: 50px;">
+			                    <h:selectBooleanCheckbox value="#{item.fgSelecionado}">
+			                    	<a4j:ajax render="pnlValorTaxa"/>
+			                    </h:selectBooleanCheckbox>
+			                    <h:outputText value="#{item.dsBairro}" />
+			                </rich:column>
+			                <rich:column colspan="2" style="width: 11%; text-align: center;">			                    
+			                    <h:panelGroup id="pnlValorTaxa">
+				                    <h:outputText value="R$ " />
+				                    <h:inputText value="#{item.strValorTaxa}" styleClass="form-control" onblur="formataMoeda(this);" style="width: 150px; height: 35px; display:inline !important;" maxlength="6" id="taxa" disabled="#{!item.fgSelecionado}">
+				                    	<f:passThroughAttribute name="placeholder" value="R$ 00,00"/>
+				                    </h:inputText>
+			                    </h:panelGroup>
+			                </rich:column>
+			            </rich:collapsibleSubTable>
+			            
+					</rich:dataTable>
+				</div>
+			
+				<div align="center">
+					<rich:dataScroller for="tblData" maxPages="10" rendered="#{not empty crudBean.searchResult and crudBean.searching}"/>
+				</div>
+			</f:subview>
+		</h:panelGrid>
+	
+        
+	
+	</h:panelGroup>
+
+</ui:composition>

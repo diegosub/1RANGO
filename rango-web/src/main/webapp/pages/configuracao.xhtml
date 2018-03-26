@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition	xmlns="http://www.w3.org/1999/xhtml"
+			    xmlns:ui="http://java.sun.com/jsf/facelets"
+			    xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:a4j="http://richfaces.org/a4j"
+				xmlns:rich="http://richfaces.org/rich"
+				xmlns:mj="http://mojarra.dev.java.net/mojarra_ext"
+				xmlns:t="http://myfaces.apache.org/tomahawk"
+				template="crud_template.xhtml">
+			
+			
+	<ui:param name="crudBean" value="#{configuracaoBean}" />
+	
+	<ui:define name="saveStateObjectsDefined">
+		<t:saveState value="#{crudBean.listaHorarioDefault}" />
+		<t:saveState value="#{crudBean.fgDelivery}" />
+		<t:saveState value="#{crudBean.fgRetiradaLocal}" />
+		<t:saveState value="#{crudBean.fgDinheiroDelivery}" />
+		<t:saveState value="#{crudBean.fgCartaoDelivery}" />
+		<t:saveState value="#{crudBean.fgDinheiroRetirada}" />
+		<t:saveState value="#{crudBean.fgCartaoRetirada}" />
+		<t:saveState value="#{crudBean.listaBandeira}" />
+		<t:saveState value="#{crudBean.listaEstado}" />
+		<t:saveState value="#{crudBean.listaCidade}" />
+		<t:saveState value="#{crudBean.listaCidadeBairro}" />
+		<t:saveState value="#{crudBean.bandeirasDelivery}" />
+		<t:saveState value="#{crudBean.bandeirasRetirada}" />
+		<t:saveState value="#{crudBean.activeTab}" />
+		<t:saveState value="#{crudBean.cidade}" />
+		<t:saveState value="#{crudBean.idCidade}" />			
+	</ui:define>
+	
+	<ui:define name="content">
+				
+		<h:panelGroup id="panelGroupDeEdicao" style="height:100%;width:100%;">
+			<f:subview id="viewEdicao">
+				 <rich:tabPanel switchType="client" activeItem="#{crudBean.activeTab}">
+					 <rich:tab header="Geral">				
+						<div class="form-group">
+		                  <label class="col-sm-3 control-label">Estabelecimento *</label>
+		                  <div class="col-sm-7">
+		                    <h:inputText value="#{crudBean.entity.dsFantasia}" styleClass="form-control" maxlength="200" id="nmFan">
+				           		<f:passThroughAttribute name="placeholder" value="Nome do Estabelecimento"/>
+				           	</h:inputText>
+		                  </div>
+		               	</div>
+               	
+		               	<h:panelGroup id="pnlTipoEntrega">
+			               	<div class="form-group">
+					          <label class="col-md-3 control-label">Tipo de Entrega *</label>
+					          <div class="col-md-6">
+					          	<div style="width: 500px; margin-top: 3px;" >
+									<h:selectBooleanCheckbox value="#{crudBean.fgDelivery}">
+										<a4j:ajax event="change" render="pnlTmpDel, pnlTxEnt, pnlFormaPagamentoDelivery, pnlFormaPagamentoRetirada" listener="#{crudBean.limparValorDelivery}"/>
+									</h:selectBooleanCheckbox>						
+									<h:outputText value="Delivery"/>
+									&nbsp;&nbsp;&nbsp;&nbsp;
+									<h:selectBooleanCheckbox value="#{crudBean.fgRetiradaLocal}">
+										<a4j:ajax event="change" render="pnlTmpRtr, pnlFormaPagamentoDelivery, pnlFormaPagamentoRetirada" listener="#{crudBean.limparValorRetirada}"/>
+									</h:selectBooleanCheckbox>
+									<h:outputText value="Retirada no Local"/>
+								</div>
+					          </div>
+					       </div>
+			               	
+			               <h:panelGroup id="pnlTmpDel">
+				               <div class="form-group">
+				                  <label class="col-sm-3 control-label">Tempo Médio Delivery <h:outputText value="*" rendered="#{crudBean.fgDelivery}"/> </label>
+				                  <div class="col-sm-6">
+				                    <h:inputText value="#{crudBean.entity.vlDuracaoDeliveryInicio}" styleClass="form-control" id="tmdi" onkeypress="return soNumero(event, this);" style="width: 150px; display:inline !important;" maxlength="3" disabled="#{!crudBean.fgDelivery}">
+				                    	<f:passThroughAttribute name="placeholder" value="Minutos"/>
+				                    </h:inputText>
+						           	a
+						           	<h:inputText value="#{crudBean.entity.vlDuracaoDeliveryFim}" styleClass="form-control" id="tmdf" onkeypress="return soNumero(event, this);" style="width: 150px; display:inline !important;" maxlength="3" disabled="#{!crudBean.fgDelivery}">
+						           		<f:passThroughAttribute name="placeholder" value="Minutos"/>
+						           	</h:inputText>
+				                  </div>
+				               </div>
+			               </h:panelGroup>
+			               
+			               <h:panelGroup id="pnlTmpRtr">	
+				               <div class="form-group">
+				                  <label class="col-sm-3 control-label">Tempo Médio Retirada <h:outputText value="*" rendered="#{crudBean.fgRetiradaLocal}"/></label>
+				                  <div class="col-sm-6">
+				                    <h:inputText value="#{crudBean.entity.vlDuracaoRetiradaInicio}" styleClass="form-control" id="tmri" onkeypress="return soNumero(event, this);" style="width: 150px; display:inline !important;" maxlength="3" disabled="#{!crudBean.fgRetiradaLocal}">
+				                    	<f:passThroughAttribute name="placeholder" value="Minutos"/>
+				                    </h:inputText>
+						           	a
+						           	<h:inputText value="#{crudBean.entity.vlDuracaoRetiradaFim}" styleClass="form-control" id="tmrf" onkeypress="return soNumero(event, this);" style="width: 150px; display:inline !important;" maxlength="3" disabled="#{!crudBean.fgRetiradaLocal}">
+						           		<f:passThroughAttribute name="placeholder" value="Minutos"/>
+						           	</h:inputText>
+				                  </div>
+				               </div>
+			               </h:panelGroup>
+		                </h:panelGroup>
+		               	
+		               	<h:panelGroup id="pnlTxEnt">
+			               	<div class="form-group">
+			                  <label class="col-sm-3 control-label">Taxa de Entrega <h:outputText value="*" rendered="#{crudBean.fgDelivery}"/></label>
+			                  <div class="col-sm-6">
+			                    <h:inputText value="#{crudBean.entity.strVlTaxaEntregaInicio}" styleClass="form-control" onblur="formataMoeda(this);" style="width: 150px; display:inline !important;" maxlength="10" id="txEntIni" disabled="#{!crudBean.fgDelivery}">
+			                    	<f:passThroughAttribute name="placeholder" value="R$ 00,00"/>
+			                    </h:inputText>
+					           	a
+					           	<h:inputText value="#{crudBean.entity.strVlTaxaEntregaFim}" styleClass="form-control" onblur="formataMoeda(this);" style="width: 150px; display:inline !important;" maxlength="10" id="txEntFim" disabled="#{!crudBean.fgDelivery}">
+					           		<f:passThroughAttribute name="placeholder" value="R$ 00,00"/>
+					           	</h:inputText>
+			                  </div>
+			               	</div>
+		               	</h:panelGroup>
+		               	
+		               	<h:panelGroup id="pnlFormaPagamentoDelivery">
+			               	<div class="form-group">
+					          <label class="col-md-3 control-label">Forma de Pagamento Delivery *</label>
+					          <div class="col-md-6">
+					          	<div style="width: 500px; margin-top: 3px;" >
+									<h:selectBooleanCheckbox value="#{crudBean.fgDinheiroDelivery}" disabled="#{!crudBean.fgDelivery}"/>
+									<h:outputText value="Dinheiro"/>
+									&nbsp;&nbsp;&nbsp;&nbsp;
+									<h:selectBooleanCheckbox value="#{crudBean.fgCartaoDelivery}" disabled="#{!crudBean.fgDelivery}">
+										<a4j:ajax event="change" render="pnlPagamentoDelivery" listener="#{crudBean.limparBandeiraDelivery}"/>
+									</h:selectBooleanCheckbox>
+									<h:outputText value="Cartão"/>
+								</div>
+					          </div>
+					       	</div>
+						       
+			               	<h:panelGroup id="pnlPagamentoDelivery">
+						       <h:panelGroup rendered="#{crudBean.fgCartaoDelivery}">
+							       <div class="form-group">
+							          <label class="col-md-3 control-label">Bandeira Delivery *</label>
+							          <div class="col-md-6">
+							          	<div style="width: 900px; margin-top: 3px;" >
+											<h:selectManyCheckbox value="#{crudBean.bandeirasDelivery}" disabled="#{crudBean.viewing}" style="margin-right: 10px;">
+										        <t:selectItems value="#{crudBean.listaBandeira}" var="i" itemLabel="#{i.dsDominio}" itemValue="#{i.vlDominio}"/>
+										    </h:selectManyCheckbox>
+										</div>
+							          </div>
+							       </div>
+						       </h:panelGroup>
+					       	</h:panelGroup>
+				       	</h:panelGroup>
+				       
+				       	<h:panelGroup id="pnlFormaPagamentoRetirada">
+					       	<div class="form-group">
+					          <label class="col-md-3 control-label">Forma de Pagamento Retirada *</label>
+					          <div class="col-md-6">
+					          	<div style="width: 500px; margin-top: 3px;" >
+									<h:selectBooleanCheckbox value="#{crudBean.fgDinheiroRetirada}" disabled="#{!crudBean.fgRetiradaLocal}"/>
+									<h:outputText value="Dinheiro"/>
+									&nbsp;&nbsp;&nbsp;&nbsp;
+									<h:selectBooleanCheckbox value="#{crudBean.fgCartaoRetirada}" disabled="#{!crudBean.fgRetiradaLocal}">
+										<a4j:ajax event="change" render="pnlPagamentoRetirada" listener="#{crudBean.limparBandeiraRetirada}"/>
+									</h:selectBooleanCheckbox>
+									<h:outputText value="Cartão"/>
+								</div>
+					          </div>
+					       	</div>
+						       
+			               	<h:panelGroup id="pnlPagamentoRetirada">
+						       <h:panelGroup rendered="#{crudBean.fgCartaoRetirada}">
+							       <div class="form-group">
+							          <label class="col-md-3 control-label">Bandeira Retirada *</label>
+							          <div class="col-md-6">
+							          	<div style="width: 900px; margin-top: 3px;" >
+											<h:selectManyCheckbox value="#{crudBean.bandeirasRetirada}" disabled="#{crudBean.viewing}" style="margin-right: 10px;">
+										        <t:selectItems value="#{crudBean.listaBandeira}" var="i" itemLabel="#{i.dsDominio}" itemValue="#{i.vlDominio}"/>
+										    </h:selectManyCheckbox>
+										</div>
+							          </div>
+							       </div>
+						       </h:panelGroup>
+					       </h:panelGroup>
+				       </h:panelGroup>
+				       
+				       <div class="form-group">
+		                  <label class="col-sm-3 control-label">Valor Mínimo Pedido *</label>
+		                  <div class="col-sm-6">
+		                    <h:inputText value="#{crudBean.entity.strVlMinimo}" styleClass="form-control" onblur="formataMoeda(this);" style="width: 150px;" maxlength="12">
+		                    	<f:passThroughAttribute name="placeholder" value="R$ 00,00"/>
+		                    </h:inputText>
+		                  </div>
+		               	</div>
+	               	</rich:tab>
+	               	
+	               	<rich:tab header="Endereço">
+		               	<ui:include src="panelEndereco.xhtml" />
+	               	</rich:tab>
+	               	
+	               	<rich:tab header="Horários">
+		            	<ui:include src="panelHorarioFuncionamento.xhtml" />
+	               	</rich:tab>
+	               	
+	               	<rich:tab header="Bairros">
+		            	<ui:include src="panelBairroAtendimento.xhtml" />
+	               	</rich:tab>
+	               		       
+               	</rich:tabPanel>
+               
+               	<br/>
+			</f:subview>
+		</h:panelGroup>	
+		
+	</ui:define>
+	
+	<ui:define name="buttonItens" style="height:100%; width:100%;">
+		<a4j:commandButton id="salvar" styleClass="btn btn-primary" value="Salvar (S)" accesskey="S" actionListener="#{crudBean.salvar}" render="pnFrm"/>
+	</ui:define>
+	
+</ui:composition>

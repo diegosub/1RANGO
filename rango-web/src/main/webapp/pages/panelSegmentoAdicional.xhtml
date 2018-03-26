@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+					  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:a4j="http://richfaces.org/a4j"
+				xmlns:rich="http://richfaces.org/rich"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:t="http://myfaces.apache.org/tomahawk"
+				xmlns:mj="http://mojarra.dev.java.net/mojarra_ext">
+	
+	<h:panelGroup id="pnlSegmentoAdicional">
+		<div class="box-body">
+           	<div class="form-group">
+               <label class="col-sm-2 control-label">Pergunta *</label>
+               <div class="col-sm-8">
+                 <h:inputText value="#{crudBean.segmentoAdicional.dsSegmentoAdicional}" styleClass="form-control" maxlength="500" id="segAdc">
+                 	<f:passThroughAttribute name="placeholder" value="Descrição da Pergunta"/>
+                 </h:inputText>
+               </div>
+            </div>
+            
+            <div class="form-group">
+	            <label class="col-sm-2 control-label">Múltiplas Resposta *</label>
+	            <div class="col-md-4">
+	          		<div style="width: 180px;" class="checkbox">
+						<h:selectOneRadio value="#{crudBean.segmentoAdicional.fgMultiplosItens}" style="width: 100%;" >
+							<f:selectItem itemValue="S" itemLabel="Sim" />
+							<f:selectItem itemValue="N" itemLabel="Não"/>
+						</h:selectOneRadio>
+					</div>
+                 </div>
+            </div>
+            
+            <div class="form-group">
+	            <label class="col-sm-2 control-label">Resposta Obrigatória *</label>
+	            <div class="col-md-4">
+	          		<div style="width: 180px;" class="checkbox">
+						<h:selectOneRadio value="#{crudBean.segmentoAdicional.fgObrigatorio}" style="width: 100%;" >
+							<f:selectItem itemValue="S" itemLabel="Sim" />
+							<f:selectItem itemValue="N" itemLabel="Não"/>
+						</h:selectOneRadio>
+					</div>
+                 </div>
+            </div>
+            
+            <h:panelGroup id="resultItem">
+	            <rich:panel header="Itens">
+					<rich:dataTable id="tblItem" 
+									 value="#{crudBean.listaItens}" 
+								       var="item" rows="10" iterationStatusVar="it"
+								styleClass="table table-bordered table-striped dataTable"
+								onrowmouseover="this.style.cursor='default';this.style.backgroundColor='#FFF8DC';" 
+								onrowmouseout="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">						     
+							<f:facet name="header">
+								<rich:columnGroup>
+									<rich:column style="width: 73%; text-align: center;" breakRowBefore="true">
+										Descrição
+									</rich:column>
+									<rich:column style="width:20%; text-align: center;">
+										Valor
+									</rich:column>
+									<rich:column style="width:7%;"/>
+								</rich:columnGroup>
+							</f:facet>
+							<rich:column style="text-align: right;">
+								<h:inputText value="#{item.dsSegmentoItem}" styleClass="form-control" maxlength="100" disabled="#{crudBean.viewing}" >
+									<f:passThroughAttribute name="placeholder" value="Descrição do Item"/>
+								</h:inputText>
+							</rich:column>
+							<rich:column style="text-align: left;">
+								<h:inputText value="#{item.strVlAdicional}" styleClass="form-control" maxlength="100" disabled="#{crudBean.viewing}" onblur="formataMoeda(this);">
+									<f:passThroughAttribute name="placeholder" value="R$ 00,00"/>
+								</h:inputText>
+							</rich:column>
+							<rich:column style="text-align: center;">						
+								<a4j:commandButton image="../images/rmv.png" style="border:none; width: 20px; height: 20px;" title="REMOVER" action="#{crudBean.removerLinhaItem}" rendered="#{it.index != 0 }" render="resultItem">
+									<f:setPropertyActionListener target="#{crudBean.segmentoItem}" value="#{item}" />
+								</a4j:commandButton>
+								&nbsp;
+								<a4j:commandButton image="../images/add.png" style="border:none; width: 20px; height: 20px;" title="ADICIONAR" action="#{crudBean.adicionarLinhaItem}" rendered="#{(it.index + 1) == crudBean.listaItens.size()}" render="resultItem"/>
+							</rich:column>			
+					</rich:dataTable>
+				</rich:panel>
+			</h:panelGroup>
+			
+            <div style="width: 100%" align="center">
+            	<br/>
+            	<a4j:commandButton id="adicionarPergunta" styleClass="btn btn-primary" value="Adicionar Pergunta (A)" accesskey="A" actionListener="#{crudBean.adicionarPergunta}" render="panelGroupDeEdicao" />	
+            </div>
+		</div>		
+	</h:panelGroup>
+
+</ui:composition>

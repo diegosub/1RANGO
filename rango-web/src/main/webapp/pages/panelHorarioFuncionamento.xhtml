@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+					  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:a4j="http://richfaces.org/a4j"
+				xmlns:rich="http://richfaces.org/rich"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:t="http://myfaces.apache.org/tomahawk"
+				xmlns:mj="http://mojarra.dev.java.net/mojarra_ext">
+	
+	<h:panelGroup id="panelHorarioFuncionamento">
+	
+		<h:panelGrid id="tblPanel" layout="block" style="width: 100%; height: 100%;z" >
+			<f:subview id="viewHorario">
+				<div class="box-content" style="width: 70%; float:left;">
+					<rich:dataTable id="tblData" style="width:100%; text-align: center;"
+								 value="#{crudBean.listaHorarioDefault}" var="rst"
+							styleClass="table table-bordered table-striped dataTable"
+							onrowmouseover="this.style.cursor='default';this.style.backgroundColor='#FFF8DC';" 
+							onrowmouseout="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">						     
+						<f:facet name="header">
+							<rich:columnGroup>
+								<rich:column style="width: 3%; text-align: center;"/>
+								<rich:column style="width: 25%; text-align: center;"/>
+								
+								<rich:column style="width:26%; text-align: center;">
+									Hora de Início
+								</rich:column>
+								<rich:column style="width: 26%; text-align: center;">
+									Hora de Término
+								</rich:column>
+								
+							</rich:columnGroup>
+						</f:facet>
+						<rich:column style="text-align: center;">
+							<h:selectBooleanCheckbox value="#{rst.fgAtivo}">
+								<a4j:ajax event="change" listener="#{crudBean.selecionarDia}" render="panelHorarioFuncionamento" execute="@form"/>
+							</h:selectBooleanCheckbox>
+						</rich:column>
+						<rich:column style="text-align: left;">
+							<h:outputText value="#{rst.dsHorario}"/>
+						</rich:column>
+						<rich:column style="text-align: center;" >
+							<h:inputText value="#{rst.hrInicio}" maxlength="5" styleClass="form-control" id="hi" style="width: 200px; display: inline !important; text-align: center;" readonly="#{!rst.fgAtivo}"/>
+						</rich:column>
+						<rich:column style="text-align: center;">
+							<h:inputText value="#{rst.hrFim}" maxlength="5" styleClass="form-control" id="hf" style="width: 200px; display: inline !important; text-align: center;" readonly="#{!rst.fgAtivo}"/>
+						</rich:column>
+					
+					</rich:dataTable>
+				</div>
+				
+				<div style="width: 28%; float:right;">
+					<div class="alert alert-block alert-warning fade in">
+                      
+                      <h4 style="margin-bottom: 6px; text-align: center;"><u>Informações</u></h4>
+                      <p>
+                        <b>1) Hora de Início:</b> Hora em que inicia o atendimento do estabelecimento no dia.
+                      </p>
+                      
+                      <p>
+                        <b>2) Hora de Fim:</b> Hora em que termina o atendimento do estabelecimento no dia.
+                      </p>
+                      
+                      <p>
+                        <b>3)</b> O tempo mínimo de intervalo da hora inicial para a hora final é de no mínimo 1 hora (60 minutos).                        
+                      </p>
+                      
+                      <p>
+                        <b>4)</b> O estabelecimento só estará disponível no aplicativo durante os dias selecionados, em seus respectivos horários (Início e Fim).                        
+                      </p>
+                      
+                    </div>
+				</div>
+			</f:subview>
+		</h:panelGrid>
+		
+		<script type="text/javascript">
+		    $(function() {
+		    	$("#formulario\\:viewEdicao\\:viewHorario\\:tblData\\:0\\:hi").mask("99:99");
+		        $("#formulario\\:viewEdicao\\:viewHorario\\:tblData\\:1\\:hi").mask("99:99");
+		        $("#formulario\\:viewEdicao\\:viewHorario\\:tblData\\:2\\:hi").mask("99:99");
+		        $("#formulario\\:viewEdicao\\:viewHorario\\:tblData\\:3\\:hi").mask("99:99");
+		        $("#formulario\\:viewEdicao\\:viewHorario\\:tblData\\:4\\:hi").mask("99:99");
+		        $("#formulario\\:viewEdicao\\:viewHorario\\:tblData\\:5\\:hi").mask("99:99");
+		        $("#formulario\\:viewEdicao\\:viewHorario\\:tblData\\:6\\:hi").mask("99:99");
+		        
+		        $("#formulario\\:viewEdicao\\:viewHorario\\:tblData\\:0\\:hf").mask("99:99");
+		        $("#formulario\\:viewEdicao\\:viewHorario\\:tblData\\:1\\:hf").mask("99:99");
+		        $("#formulario\\:viewEdicao\\:viewHorario\\:tblData\\:2\\:hf").mask("99:99");
+		        $("#formulario\\:viewEdicao\\:viewHorario\\:tblData\\:3\\:hf").mask("99:99");
+		        $("#formulario\\:viewEdicao\\:viewHorario\\:tblData\\:4\\:hf").mask("99:99");
+		        $("#formulario\\:viewEdicao\\:viewHorario\\:tblData\\:5\\:hf").mask("99:99");
+		        $("#formulario\\:viewEdicao\\:viewHorario\\:tblData\\:6\\:hf").mask("99:99");
+		        
+		        $("#formulario\\:viewEdicao\\:cep").mask("99.999-999");	
+		    });	
+		</script>		
+	</h:panelGroup>
+
+</ui:composition>

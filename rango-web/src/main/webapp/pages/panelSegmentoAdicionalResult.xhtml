@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+					  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:a4j="http://richfaces.org/a4j"
+				xmlns:rich="http://richfaces.org/rich"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:t="http://myfaces.apache.org/tomahawk"
+				xmlns:mj="http://mojarra.dev.java.net/mojarra_ext">
+	
+	<h:panelGroup id="pnlSegmentoAdicionalResult">
+		<div class="box-body">            
+            <h:panelGroup id="resultPergunta">
+				<rich:dataTable id="tblPergunta" 
+								 value="#{crudBean.listaPerguntas}" 
+							       var="perg" rows="10"
+							styleClass="table table-bordered table-striped dataTable"
+							onrowmouseover="this.style.cursor='default';this.style.backgroundColor='#FFF8DC';" 
+							onrowmouseout="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">						     
+						<f:facet name="header">
+							<rich:columnGroup>
+								<rich:column style="width: 87%; text-align: center;" colspan="5">
+									Perguntas
+								</rich:column>
+							</rich:columnGroup>
+						</f:facet>
+						
+						<rich:column style="text-align: left;" colspan="3">
+							<rich:collapsibleSubTableToggler for="subTbl" />
+							<h:outputText value="#{perg.dsSegmentoAdicional}"/>
+						</rich:column>
+						
+						<rich:column style="text-align: center; width: 15%" colspan="1">
+							<h:outputText value="Múltiplas Respostas" rendered="#{perg.fgMultiplosItens == 'S'}"/>
+							<h:outputText value="Única Resposta" rendered="#{perg.fgMultiplosItens == 'N'}"/>
+						</rich:column>
+													
+						<rich:column style="text-align: center; width: 3%;" colspan="1">
+							<a4j:commandButton image="../images/remove.png" style="border:none; width: 20px; height: 20px;" title="INATIVAR" action="#{crudBean.removerPergunta}" render="pnFrm" onclick="if (!confirm('Deseja realmente remover este registro?')) return false" rendered="#{crudBean.updating}">
+								<f:setPropertyActionListener target="#{crudBean.segmentoAdicional}" value="#{perg}" />
+							</a4j:commandButton>
+						</rich:column>
+
+						<rich:collapsibleSubTable value="#{perg.listaSegmentoItem}" var="item" id="subTbl" expandMode="client">
+			                <rich:column colspan="3" style="padding-left: 40px;">
+			                    <h:outputText value=" - " />
+			                    <h:outputText value="#{item.dsSegmentoItem}" />
+			                </rich:column>
+			                <rich:column colspan="2" style="text-align: center; width: 10%;">
+			                    <h:outputText value="R$ "/>
+			                    <h:outputText value="#{item.vlAdicional}" converter="converterMoeda"/>
+			                </rich:column>				                
+			            </rich:collapsibleSubTable>
+						
+				</rich:dataTable>
+			</h:panelGroup>
+		</div>				
+	</h:panelGroup>
+
+</ui:composition>

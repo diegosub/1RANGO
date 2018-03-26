@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition	xmlns="http://www.w3.org/1999/xhtml"
+			    xmlns:ui="http://java.sun.com/jsf/facelets"
+			    xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:a4j="http://richfaces.org/a4j"
+				xmlns:rich="http://richfaces.org/rich"
+				xmlns:mj="http://mojarra.dev.java.net/mojarra_ext"
+				xmlns:t="http://myfaces.apache.org/tomahawk"
+				template="crud_template.xhtml">
+			
+			
+	<ui:param name="crudBean" value="#{usuarioBean}" />
+	
+	<ui:define name="saveStateObjectsDefined">
+		<t:saveState value="#{crudBean.listaEstado}" />
+		<t:saveState value="#{crudBean.listaGrupo}" />
+		<t:saveState value="#{crudBean.listaEstabelecimento}" />
+		<t:saveState value="#{crudBean.siglaEstado}" />
+		<t:saveState value="#{crudBean.activeTab}" />
+	</ui:define>
+	
+	<ui:define name="content">
+		<h:panelGroup id="panelGroupDePesquisa" style="height:100%;width:100%;" rendered="#{crudBean.searching}">
+			<f:subview id="viewBusca">
+				
+				<div class="form-group">
+                  <label class="col-sm-2 control-label">Nome</label>
+                  <div class="col-sm-6">
+                    <h:inputText value="#{crudBean.searchObject.dsNome}" styleClass="form-control" maxlength="250" id="dsNom">
+		           		<f:passThroughAttribute name="placeholder" value="Nome do Usuário"/>
+		           	</h:inputText>
+                  </div>
+               	</div>
+               	
+               	<div class="form-group">
+                  <label class="col-sm-2 control-label">Login</label>
+                  <div class="col-sm-6">
+                    <h:inputText value="#{crudBean.login}" styleClass="form-control" size="100" id="login">
+                    	<f:passThroughAttribute name="placeholder" value="Login do Usuário"/>
+                    </h:inputText>
+                  </div>
+               	</div>
+               	
+               	<div class="form-group">
+                    <label class="col-sm-2 control-label">Situação</label>
+                    <div class="col-md-4">
+		          	<div style="width: 250px;" class="checkbox">
+							<h:selectOneRadio value="#{crudBean.searchObject.fgAtivo}" style="width: 100%;" >
+								<f:selectItem itemValue="T" itemLabel="Todos" />
+								<f:selectItem itemValue="S" itemLabel="Ativos" />
+								<f:selectItem itemValue="N" itemLabel="Inativos"/>
+							</h:selectOneRadio>
+						</div>
+                    </div>
+               	</div>
+               
+			</f:subview>
+		</h:panelGroup>	
+		
+		<h:panelGroup id="panelGroupDeEdicao" style="height:100%;width:100%;" rendered="#{crudBean.updating || crudBean.viewing}">
+			<f:subview id="viewEdicao">
+				
+				 <rich:tabPanel switchType="client" activeItem="#{crudBean.activeTab}">
+					 <rich:tab header="Dados Pessoais">				
+							<h:panelGroup id="panelGroupAlterar1" rendered="#{crudBean.editing || crudBean.viewing}" style="height:100%">
+								<div class="form-group">
+						          <label class="col-md-2 control-label">Código</label>
+						          <div class="col-md-6" style="margin-top: 5px;">
+						          	<h:outputText value="#{crudBean.entity.idUsuario}" />
+						          </div>
+						       	</div>					
+							</h:panelGroup>
+							
+							<div class="form-group">
+			                  <label class="col-sm-2 control-label">Nome *</label>
+			                  <div class="col-sm-6">
+			                    <h:inputText value="#{crudBean.entity.dsNome}" styleClass="form-control" maxlength="250" id="dsNom" disabled="#{crudBean.viewing}">
+					           		<f:passThroughAttribute name="placeholder" value="Nome do Usuário"/>
+					           	</h:inputText>
+			                  </div>
+			               	</div>
+			               	
+			               	<div class="form-group">
+			                  <label class="col-sm-2 control-label">E-mail *</label>
+			                  <div class="col-sm-6">
+			                    <h:inputText value="#{crudBean.entity.dsEmail}" styleClass="form-control" maxlength="250" onblur="validarEmail(this);" id="email" disabled="#{crudBean.viewing}">
+			                     <f:passThroughAttribute name="placeholder" value="E-mail do Usuário"/>
+			                    </h:inputText>
+			                  </div>
+			               	</div>
+			               	
+			               	<div class="form-group">
+			                  <label class="col-sm-2 control-label">Login *</label>
+			                  <div class="col-sm-3">
+			                    <h:inputText value="#{crudBean.entity.dsLogin}" styleClass="form-control" maxlength="100" id="login" disabled="#{crudBean.viewing}">
+				                	<f:passThroughAttribute name="placeholder" value="Login do Usuário"/>
+			                    </h:inputText>
+			                  </div>
+			               	</div>
+			               	
+			               	<div class="form-group">
+			                  <label class="col-sm-2 control-label">Cpf *</label>
+			                  <div class="col-sm-3">
+			                    <h:inputText value="#{crudBean.entity.dsCpf}" styleClass="form-control" onblur="validarCPF(this);" maxlength="14" id="cpf" disabled="#{crudBean.viewing}">
+					           		<f:passThroughAttribute name="placeholder" value="Cpf do Usuário"/>
+					           	</h:inputText>
+			                  </div>
+			               	</div>
+			               	
+			               	<div class="form-group">
+			                  <label class="col-sm-2 control-label">Telefone *</label>
+			                  <div class="col-sm-3">
+			                    <h:inputText value="#{crudBean.entity.nmTelefone}" styleClass="form-control" id="tel" disabled="#{crudBean.viewing}">
+			                     <f:passThroughAttribute name="placeholder" value="Telefone do Usuário (Com DDD)"/>
+			                    </h:inputText>
+			                  </div>
+			               	</div>
+			               	
+			               	<div class="form-group">
+			                  <label class="col-sm-2 control-label">Nascimento *</label>
+			                  <div class="col-sm-2">
+				               	  <rich:calendar value="#{crudBean.entity.dtNascimento}" id="dtNas" buttonClass="glyphicon glyphicon-calendar" inputSize="9"  datePattern="dd/MM/yyyy" inputClass="form-control" showWeeksBar="false" enableManualInput="true" oninputkeypress="return formataData(event,this);" maxlength="10" disabled="#{crudBean.viewing}"/>
+				              </div>
+			               	</div>
+			               	
+			               	<div class="form-group">
+			                	<label class="col-sm-2 control-label">Sexo *</label>			               				               	
+				               	<div class="col-md-4">
+						          	<div style="width: 250px;" class="checkbox">
+										<h:selectOneRadio value="#{crudBean.entity.fgSexo}" style="width: 100%;" disabled="#{crudBean.viewing}" >
+											<f:selectItem itemValue="M" itemLabel="Masculino" />
+											<f:selectItem itemValue="F" itemLabel="Feminino"/>
+									  	</h:selectOneRadio>
+									</div>
+						        </div>
+					        </div>
+		               	</rich:tab>
+		               	
+		               	<rich:tab header="Endereço">			             
+			               	<ui:include src="panelEndereco.xhtml" />			             
+		               	</rich:tab>
+		               	
+		               	<rich:tab header="Permissões">
+		               		<h:panelGroup id="pnlPermissoes">
+			               		<div class="form-group">
+			                      <label class="col-sm-2 control-label">Grupo *</label>
+			                      <div class="col-sm-6">
+			                        <h:selectOneMenu value="#{crudBean.entity.idGrupo}" styleClass="form-control" converter="simpleIndexConverter" disabled="#{crudBean.viewing}">								
+										<t:selectItems var="i" itemValue="#{i.idGrupo}" itemLabel="#{i.dsGrupo}" value="#{crudBean.listaGrupo}" />
+										<a4j:ajax event="change" listener="#{crudBean.atualizarEstabelecimento}" render="pnlPermissoes"/>
+									 </h:selectOneMenu>
+			                      </div>
+			                    </div>
+			                    
+			                    <h:panelGroup rendered="#{crudBean.entity.idGrupo == 2}">
+				                    <div class="form-group">
+				                      <label class="col-sm-2 control-label">Estabelecimento *</label>
+				                      <div class="col-sm-6">
+				                        <h:selectOneMenu value="#{crudBean.entity.idEstabelecimento}" styleClass="form-control" converter="simpleIndexConverter" disabled="#{crudBean.viewing}">								
+											<t:selectItems var="i" itemValue="#{i.idEstabelecimento}" itemLabel="#{i.dsEstabelecimento}" value="#{crudBean.listaEstabelecimento}" />
+										 </h:selectOneMenu>
+				                      </div>
+				                    </div>
+			                    </h:panelGroup>
+		                    </h:panelGroup>
+		               	</rich:tab>
+		               	
+		               	<rich:tab header="Auditoria" rendered="#{crudBean.viewing}">
+			               	<ui:include src="panelAuditoria.xhtml" />			             
+		               	</rich:tab>
+		               			              
+	               	</rich:tabPanel>
+	               	
+	               	<br/>
+               	
+			</f:subview>
+		</h:panelGroup>	
+		
+		<script type="text/javascript">
+		    $(function() {
+		    	$("#formulario\\:viewEdicao\\:tel").mask("(99) 99999-9999");
+		    	$("#formulario\\:viewEdicao\\:cpf").mask("999.999.999-99");
+		    	$("#formulario\\:viewEdicao\\:cep").mask("99.999-999");
+		    });	
+		</script>				
+	</ui:define>
+	
+	<ui:define name="list">	
+		<h:panelGrid id="tblResult" layout="block" style="width: 100%; height: 100%;z" >
+			<f:subview id="viewListagem">
+				<div class="box-content">
+					<rich:dataTable id="tblData" 
+								 value="#{crudBean.searchResult}" 
+							       var="rst" rows="10"
+							styleClass="table table-bordered table-striped dataTable"
+							onrowmouseover="this.style.cursor='default';this.style.backgroundColor='#FFF8DC';" 
+							onrowmouseout="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+							  rendered="#{not empty crudBean.searchResult and crudBean.searching}">						     
+						<f:facet name="header">
+							<rich:columnGroup>
+								<rich:column style="width: 5%; text-align: center;">
+									Código
+								</rich:column>
+								<rich:column style="width:33%; text-align: center;">
+									Nome
+								</rich:column>
+								<rich:column style="width:15%; text-align: center;">
+									Login
+								</rich:column>
+								<rich:column style="width:29%; text-align: center;">
+									Email
+								</rich:column>
+								<rich:column style="width: 9%; text-align: center;">
+									Situação
+								</rich:column>
+								<rich:column style="width: 3%; text-align: center;"/>
+								<rich:column style="width: 3%; text-align: center;"/>
+								<rich:column style="width: 3%; text-align: center;"/>
+							</rich:columnGroup>
+						</f:facet>
+						<rich:column style="text-align: right;">
+							<h:outputText value="#{rst.idUsuario}" />
+						</rich:column>
+						<rich:column style="text-align: left;">
+							<h:outputText value="#{rst.dsNome}" />
+						</rich:column>
+						<rich:column style="text-align: left;">
+							<h:outputText value="#{rst.dsLogin}" />
+						</rich:column>
+						<rich:column style="text-align: left;">
+							<h:outputText value="#{rst.dsEmail}" />
+						</rich:column>
+						<rich:column style="text-align: left;">
+							<h:outputText value="ATIVO" style="color: blue;" rendered="#{rst.fgAtivo == 'S'}"/>
+							<h:outputText value="INATIVO" style="color:red;" rendered="#{rst.fgAtivo == 'N'}"/>
+						</rich:column>
+						<rich:column style="text-align: center;">
+							<a4j:commandButton image="../images/visualizar.png" style="border:none; width: 20px; height: 20px;" title="VISUALIZAR" action="#{crudBean.preparaVisualizar}" render="pnFrm, panelTitle">
+								<f:setPropertyActionListener target="#{crudBean.entityAlt}" value="#{rst}" />
+							</a4j:commandButton>
+						</rich:column>
+						<rich:column style="text-align: center;">
+							<a4j:commandButton image="../images/edit.png" style="border:none; width: 20px; height: 20px;" title="ALTERAR" action="#{crudBean.preparaAlterar}" rendered="#{rst.fgAtivo == 'S'}" render="pnFrm, panelTitle, comentTela" >
+								<f:setPropertyActionListener target="#{crudBean.entityAlt}" value="#{rst}" />
+							</a4j:commandButton>
+						</rich:column>
+						<rich:column style="text-align: center;">
+							<a4j:commandButton image="../images/remove.png" style="border:none; width: 20px; height: 20px;" title="INATIVAR" action="#{crudBean.inativar}" rendered="#{rst.fgAtivo == 'S'}" render="pnFrm" onclick="if (!confirm('Deseja realmente inativar este registro?')) return false">
+								<f:setPropertyActionListener target="#{crudBean.entity}" value="#{rst}" />
+							</a4j:commandButton>
+							<a4j:commandButton image="../images/ativar.png" style="border:none; width: 20px; height: 20px;" title="ATIVAR" action="#{crudBean.ativar}" rendered="#{rst.fgAtivo == 'N'}" render="pnFrm" onclick="if (!confirm('Deseja realmente ativar este registro?')) return false">
+								<f:setPropertyActionListener target="#{crudBean.entity}" value="#{rst}" />
+							</a4j:commandButton>
+						</rich:column>						
+					</rich:dataTable>
+				</div>
+				<h:panelGroup style="color: #333333" rendered="#{not empty crudBean.searchResult and crudBean.searching}"><div align="right" style="font-size: 14px;">Foi(ram) encontrado(s) <h:outputText value="#{crudBean.searchResult.size()}"/> registro(s). &nbsp;&nbsp; </div></h:panelGroup>
+				<h:panelGroup style="color: #333333" rendered="#{empty crudBean.searchResult and crudBean.searching}"><div align="right" style="font-size: 14px;">Sua consulta não gerou resultados. &nbsp;&nbsp; </div></h:panelGroup>
+				<div align="center">
+					<rich:dataScroller for="tblData" maxPages="10" rendered="#{not empty crudBean.searchResult and crudBean.searching}"/>
+				</div>
+			</f:subview>
+		</h:panelGrid>
+	</ui:define>
+	
+</ui:composition>

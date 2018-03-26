@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html 		xmlns="http://www.w3.org/1999/xhtml"
+			xmlns:ui="http://java.sun.com/jsf/facelets"
+			xmlns:h="http://java.sun.com/jsf/html"
+			xmlns:f="http://java.sun.com/jsf/core"
+			xmlns:a4j="http://richfaces.org/a4j"
+			xmlns:rich="http://richfaces.org/rich">
+			
+	<f:loadBundle basename="ApplicationResources" var="bundle"/>
+			
+	<h:head>	
+		<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+			
+		<title>
+			<h:outputText value="#{bundle.tituloAplicacao}" /> 
+		</title>		
+		
+		<link href="../css/login.css" rel="stylesheet"/> 
+		<link href="../css/bootstrap.min.css" rel="stylesheet"/>
+	</h:head>
+	
+	<h:body style="background: #ead5b6">
+		  	<a4j:outputPanel style="width:100%;height:100%;" ajaxRendered="true">
+				<rich:messages layout="table" globalOnly="true" errorClass="alert alert-danger" infoClass="alert alert-info" warnClass="alertLoginSucess" id="messages"/>
+			</a4j:outputPanel>
+		
+		<div class="out-container">
+         
+		 <div class="login-page">
+			<div class="container">
+
+				<!-- Nav tabs -->
+				<div align="center" style="background: #c22234; color: #ffff; padding: 10px; font-size: 15px;">
+				  <strong>1RANGO - Autenticação</strong>
+				</div>
+
+				<!-- Tab panes -->
+				<div class="tab-content">
+				  <div class="tab-pane fade active in" id="login">
+				  
+				  
+					<!-- Login form -->
+					
+					<h:form id="formulario">
+					  <div class="form-group">
+						<label for="email">Login</label>						
+						<h:inputText value="#{loginBean.usuario.dsLogin}" styleClass="form-control" id="login">
+							<f:passThroughAttribute name="placeholder" value="Informe seu login"/>
+						</h:inputText>
+					  </div>
+					  <div class="form-group">
+						<label for="password">Senha</label>						
+						<h:inputSecret value="#{loginBean.usuario.dsSenha}" styleClass="form-control" id="senha">
+							<f:passThroughAttribute name="placeholder" value="Informe sua senha"/>
+						</h:inputSecret>
+					  </div>
+					  
+					  <h:commandButton styleClass="btn btn-danger btn-sm" id="logar" action="#{loginBean.login}" value="Entrar"/>	
+					</h:form>
+					
+				  </div>
+				  
+				  
+				</div>
+				
+			</div>
+		 </div>	
+		 
+      </div>
+		
+		
+	</h:body>
+</html>

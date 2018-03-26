@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition	xmlns="http://www.w3.org/1999/xhtml"
+			    xmlns:ui="http://java.sun.com/jsf/facelets"
+			    xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:a4j="http://richfaces.org/a4j"
+				xmlns:rich="http://richfaces.org/rich"
+				xmlns:mj="http://mojarra.dev.java.net/mojarra_ext"
+				xmlns:t="http://myfaces.apache.org/tomahawk"
+				template="crud_template.xhtml">
+			
+			
+	<ui:param name="crudBean" value="#{cidadeBean}" />	
+	
+	<ui:define name="saveStateObjectsDefined">
+		<t:saveState value="#{crudBean.listaEstado}" />
+	</ui:define>
+	
+	<ui:define name="content">
+		<h:panelGroup id="panelGroupDePesquisa" style="height:100%;width:100%;" rendered="#{crudBean.searching}">
+			<f:subview id="viewBusca">
+				
+				<div class="form-group">
+                  <label class="col-sm-2 control-label">Descrição</label>
+                  <div class="col-sm-6">
+                    <h:inputText value="#{crudBean.searchObject.dsCidade}" styleClass="form-control" maxlength="100" id="dsCid">
+		           		<f:passThroughAttribute name="placeholder" value="Descrição da Cidade"/>
+		           	</h:inputText>
+                  </div>
+               	</div>
+               	               	
+               	<div class="form-group">
+                	<label class="col-sm-2 control-label">Estado</label>
+                    <div class="col-sm-4">
+                    	<h:selectOneMenu value="#{crudBean.searchObject.idEstado}" styleClass="form-control" converter="simpleIndexConverter">			                        								
+							<t:selectItems var="i" itemValue="#{i.idEstado}" itemLabel="#{i.dsEstado}" value="#{crudBean.listaEstado}" />
+						</h:selectOneMenu>
+                    </div>
+               </div>
+               
+               <div class="form-group">
+		          <label class="col-md-2 control-label">Situação</label>
+		          <div class="col-md-4">
+		          	<div style="width: 250px;" class="checkbox">
+						<h:selectOneRadio value="#{crudBean.searchObject.fgAtivo}" style="width: 100%;" >
+							<f:selectItem itemValue="T" itemLabel="Todos" />
+							<f:selectItem itemValue="S" itemLabel="Ativos" />
+							<f:selectItem itemValue="N" itemLabel="Inativos"/>
+						</h:selectOneRadio>
+					</div>
+		          </div>
+		       </div>
+
+			</f:subview>
+		</h:panelGroup>	
+		
+		<h:panelGroup id="panelGroupDeEdicao" style="height:100%;width:100%;" rendered="#{crudBean.updating || crudBean.viewing}">
+			<f:subview id="viewEdicao">
+				
+				<h:panelGroup id="panelGroupAlterar1" rendered="#{crudBean.editing || crudBean.viewing}" style="height:100%">
+					<div class="form-group">
+			          <label class="col-md-2 control-label">Código</label>
+			          <div class="col-md-6" style="margin-top: 5px;">
+			          	<h:outputText value="#{crudBean.entity.idCidade}" />
+			          </div>
+			       	</div>					
+				</h:panelGroup>
+				
+				<div class="form-group">
+                  <label class="col-sm-2 control-label">Descrição *</label>
+                  <div class="col-sm-6">
+                    <h:inputText value="#{crudBean.entity.dsCidade}" styleClass="form-control" maxlength="100" id="dsCid" disabled="#{crudBean.viewing}">
+		           		<f:passThroughAttribute name="placeholder" value="Descrição da Cidade"/>
+		           	</h:inputText>
+                  </div>
+               	</div>
+               	               	
+               	<div class="form-group">
+                	<label class="col-sm-2 control-label">Estado *</label>
+                    <div class="col-sm-4">
+                    	<h:selectOneMenu value="#{crudBean.entity.idEstado}" styleClass="form-control" converter="simpleIndexConverter" disabled="#{crudBean.viewing}">			                        								
+							<t:selectItems var="i" itemValue="#{i.idEstado}" itemLabel="#{i.dsEstado}" value="#{crudBean.listaEstado}" />
+						</h:selectOneMenu>
+                    </div>
+               </div>
+               
+               <h:panelGroup id="panelGroupAlterar2" rendered="#{crudBean.viewing}" style="height:100%">
+					
+		             <div class="form-group">
+		               <label class="col-sm-2 control-label">Situação:</label>
+		               <div class="col-sm-6" style="padding-top: 7px;">
+		               	 <h:outputText value="ATIVO" style="color: blue;" rendered="#{crudBean.entity.fgAtivo == 'S'}"/>
+						 <h:outputText value="INATIVO" style="color:red;" rendered="#{crudBean.entity.fgAtivo == 'N'}"/>
+		               </div>
+		             </div>
+					
+		             <div class="form-group">
+		               <label class="col-sm-2 control-label">Data de Cadastro:</label>
+		               <div class="col-sm-6" style="padding-top: 7px;">
+		               	 <h:outputText value="#{crudBean.entity.dtCadastro}" converter="converterDataHora"/>				 
+		               </div>
+		             </div>
+					
+		             <div class="form-group">
+		               <label class="col-sm-2 control-label">Ultima Alteração:</label>
+		               <div class="col-sm-6" style="padding-top: 7px;">
+		               	 <h:outputText value="#{crudBean.entity.dtAlteracao}" converter="converterDataHora"/>				 
+		               </div>
+		             </div>				
+				</h:panelGroup>
+               
+			</f:subview>
+		</h:panelGroup>			
+	</ui:define>
+	
+	<ui:define name="list">	
+		<h:panelGrid id="tblResult" layout="block" style="width: 100%; height: 100%;z" >
+			<f:subview id="viewListagem">
+				<div class="box-content">
+					<rich:dataTable id="tblData" 
+								 value="#{crudBean.searchResult}" 
+							       var="rst" rows="10"
+							styleClass="table table-bordered table-striped dataTable"
+							onrowmouseover="this.style.cursor='default';this.style.backgroundColor='#FFF8DC';" 
+							onrowmouseout="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+							  rendered="#{not empty crudBean.searchResult and crudBean.searching}">						     
+						<f:facet name="header">
+							<rich:columnGroup>
+								<rich:column style="width: 5%; text-align: center;">
+									Código
+								</rich:column>
+								<rich:column style="width:52%; text-align: center;">
+									Descrição
+								</rich:column>
+								<rich:column style="width: 26%; text-align: center;">
+									Estado
+								</rich:column>								
+								<rich:column style="width: 8%; text-align: center;">
+									Situação
+								</rich:column>
+								<rich:column style="width: 3%; text-align: center;"/>
+								<rich:column style="width: 3%; text-align: center;"/>
+								<rich:column style="width: 3%; text-align: center;"/>
+							</rich:columnGroup>
+						</f:facet>
+						<rich:column style="text-align: right;">
+							<h:outputText value="#{rst.idCidade}" />
+						</rich:column>
+						<rich:column style="text-align: left;">
+							<h:outputText value="#{rst.dsCidade}" />
+						</rich:column>					
+						<rich:column style="text-align: left;">
+							<h:outputText value="#{rst.estado.dsEstado}" />
+						</rich:column>
+						<rich:column style="text-align: left;">
+							<h:outputText value="ATIVO" style="color: blue;" rendered="#{rst.fgAtivo == 'S'}"/>
+							<h:outputText value="INATIVO" style="color:red;" rendered="#{rst.fgAtivo == 'N'}"/>
+						</rich:column>
+						<rich:column style="text-align: center;">
+							<a4j:commandButton image="../images/visualizar.png" style="border:none; width: 20px; height: 20px;" title="VISUALIZAR" action="#{crudBean.preparaVisualizar}" render="pnFrm, panelTitle">
+								<f:setPropertyActionListener target="#{crudBean.entityAlt}" value="#{rst}" />
+							</a4j:commandButton>
+						</rich:column>
+						<rich:column style="text-align: center;">
+							<a4j:commandButton image="../images/edit.png" style="border:none; width: 20px; height: 20px;" title="ALTERAR" action="#{crudBean.preparaAlterar}" rendered="#{rst.fgAtivo == 'S'}" render="pnFrm, panelTitle, comentTela" >
+								<f:setPropertyActionListener target="#{crudBean.entityAlt}" value="#{rst}" />
+							</a4j:commandButton>
+						</rich:column>
+						<rich:column style="text-align: center;">
+							<a4j:commandButton image="../images/remove.png" style="border:none; width: 20px; height: 20px;" title="INATIVAR" action="#{crudBean.inativar}" rendered="#{rst.fgAtivo == 'S'}" render="pnFrm" onclick="if (!confirm('Deseja realmente inativar este registro?')) return false">
+								<f:setPropertyActionListener target="#{crudBean.entity}" value="#{rst}" />
+							</a4j:commandButton>
+							<a4j:commandButton image="../images/ativar.png" style="border:none; width: 20px; height: 20px;" title="ATIVAR" action="#{crudBean.ativar}" rendered="#{rst.fgAtivo == 'N'}" render="pnFrm" onclick="if (!confirm('Deseja realmente ativar este registro?')) return false">
+								<f:setPropertyActionListener target="#{crudBean.entity}" value="#{rst}" />
+							</a4j:commandButton>
+						</rich:column>						
+					</rich:dataTable>
+				</div>
+				<h:panelGroup style="color: #333333" rendered="#{not empty crudBean.searchResult and crudBean.searching}"><div align="right" style="font-size: 14px;">Foi(ram) encontrado(s) <h:outputText value="#{crudBean.searchResult.size()}"/> registro(s). &nbsp;&nbsp; </div></h:panelGroup>
+				<h:panelGroup style="color: #333333" rendered="#{empty crudBean.searchResult and crudBean.searching}"><div align="right" style="font-size: 14px;">Sua consulta não gerou resultados. &nbsp;&nbsp; </div></h:panelGroup>
+				<div align="center">
+					<rich:dataScroller for="tblData" maxPages="10" rendered="#{not empty crudBean.searchResult and crudBean.searching}"/>
+				</div>
+			</f:subview>
+		</h:panelGrid>
+	</ui:define>
+	
+</ui:composition>

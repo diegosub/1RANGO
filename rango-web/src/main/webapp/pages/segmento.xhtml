@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition	xmlns="http://www.w3.org/1999/xhtml"
+			    xmlns:ui="http://java.sun.com/jsf/facelets"
+			    xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:a4j="http://richfaces.org/a4j"
+				xmlns:rich="http://richfaces.org/rich"
+				xmlns:mj="http://mojarra.dev.java.net/mojarra_ext"
+				xmlns:t="http://myfaces.apache.org/tomahawk"
+				template="crud_template.xhtml">
+			
+			
+	<ui:param name="crudBean" value="#{segmentoBean}" />
+	
+	<ui:define name="saveStateObjectsDefined">
+		<t:saveState value="#{crudBean.segmentoAdicional}" />
+		<t:saveState value="#{crudBean.listaPerguntas}" />
+		<t:saveState value="#{crudBean.listaPerguntasBase}" />
+		<t:saveState value="#{crudBean.listaItens}" />
+		<t:saveState value="#{crudBean.listaSemana}" />
+		<t:saveState value="#{crudBean.segmentoItem}" />
+		<t:saveState value="#{crudBean.dias}" />
+	</ui:define>
+	
+	<ui:define name="content">
+		<h:panelGroup id="panelGroupDePesquisa" style="height:100%;width:100%;" rendered="#{crudBean.searching}">
+			<f:subview id="viewBusca">
+				
+				<div class="form-group">
+                  <label class="col-sm-2 control-label">Descrição</label>
+                  <div class="col-sm-6">
+                    <h:inputText value="#{crudBean.searchObject.dsSegmento}" styleClass="form-control" maxlength="100" id="dsCid">
+		           		<f:passThroughAttribute name="placeholder" value="Descrição do Segmento"/>
+		           	</h:inputText>
+                  </div>
+               	</div>
+			</f:subview>
+		</h:panelGroup>	
+		
+		<h:panelGroup id="panelGroupDeEdicao" style="height:100%;width:100%;" rendered="#{crudBean.updating || crudBean.viewing}">
+			<f:subview id="viewEdicao">
+			
+				 <rich:tabPanel switchType="client" activeItem="#{crudBean.activeTab}">
+					 <rich:tab header="Geral">				
+						<h:panelGroup id="panelGroupAlterar1" rendered="#{crudBean.editing || crudBean.viewing}" style="height:100%">
+							<div class="form-group">
+					          <label class="col-md-2 control-label">Código</label>
+					          <div class="col-md-6" style="margin-top: 5px;">
+					          	<h:outputText value="#{crudBean.entity.idSegmento}" />
+					          </div>
+					       	</div>
+						</h:panelGroup>
+						
+						<div class="form-group">
+		                  <label class="col-sm-2 control-label">Descrição *</label>
+		                  <div class="col-sm-6">
+		                    <h:inputText value="#{crudBean.entity.dsSegmento}" styleClass="form-control" maxlength="100" id="dsCid" disabled="#{crudBean.viewing}">
+				           		<f:passThroughAttribute name="placeholder" value="Descrição do Segmento"/>
+				           	</h:inputText>
+		                  </div>
+		               	</div>
+		               	
+		               	<div class="form-group">
+		                  <label class="col-sm-2 control-label">Dias da Semana *</label>
+		                  <div class="col-sm-6">
+		                    <h:selectManyCheckbox value="#{crudBean.dias}" layout="pageDirection" disabled="#{crudBean.viewing}">
+						        <t:selectItems value="#{crudBean.listaSemana}" var="i" itemLabel="#{i.dsDominio}" itemValue="#{i.vlDominio}"/>
+						    </h:selectManyCheckbox>
+		                  </div>
+		               	</div>
+					</rich:tab>
+					
+					<rich:tab header="Adicionar Pergunta" rendered="#{crudBean.updating}">			             
+		               	<ui:include src="panelSegmentoAdicional.xhtml" />			             
+	               	</rich:tab>
+
+					<rich:tab header="Perguntas Adicionadas (#{crudBean.listaPerguntas.size()})" id="tabPerguntasAdicionadas">
+						<ui:include src="panelSegmentoAdicionalResult.xhtml" />			             
+	               	</rich:tab>
+					
+					<rich:tab header="Auditoria" rendered="#{crudBean.viewing}">			             
+		               	<ui:include src="panelAuditoria.xhtml" />			             
+	               	</rich:tab>
+				</rich:tabPanel>
+               
+               	<br/>               
+			</f:subview>
+		</h:panelGroup>			
+	</ui:define>
+	
+	<ui:define name="list">	
+		<h:panelGrid id="tblResult" layout="block" style="width: 100%; height: 100%;z" >
+			<f:subview id="viewListagem">
+				<div class="box-content">
+					<rich:dataTable id="tblData" 
+								 value="#{crudBean.searchResult}" 
+							       var="rst" rows="10"
+							styleClass="table table-bordered table-striped dataTable"
+							onrowmouseover="this.style.cursor='default';this.style.backgroundColor='#FFF8DC';" 
+							onrowmouseout="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+							  rendered="#{not empty crudBean.searchResult and crudBean.searching}">						     
+						<f:facet name="header">
+							<rich:columnGroup>
+								<rich:column style="width: 5%; text-align: center;">
+									Código
+								</rich:column>
+								<rich:column style="width:78%; text-align: center;">
+									Descrição
+								</rich:column>
+								<rich:column style="width: 8%; text-align: center;">
+									Situação
+								</rich:column>
+								<rich:column style="width: 3%; text-align: center;"/>
+								<rich:column style="width: 3%; text-align: center;"/>
+								<rich:column style="width: 3%; text-align: center;"/>
+							</rich:columnGroup>
+						</f:facet>
+						<rich:column style="text-align: right;">
+							<h:outputText value="#{rst.idSegmento}" />
+						</rich:column>
+						<rich:column style="text-align: left;">
+							<h:outputText value="#{rst.dsSegmento}" />
+						</rich:column>					
+						<rich:column style="text-align: left;">
+							<h:outputText value="ATIVO" style="color: blue;" rendered="#{rst.fgAtivo == 'S'}"/>
+							<h:outputText value="INATIVO" style="color:red;" rendered="#{rst.fgAtivo == 'N'}"/>
+						</rich:column>
+						<rich:column style="text-align: center;">
+							<a4j:commandButton image="../images/visualizar.png" style="border:none; width: 20px; height: 20px;" title="VISUALIZAR" action="#{crudBean.preparaVisualizar}" render="pnFrm, panelTitle">
+								<f:setPropertyActionListener target="#{crudBean.entityAlt}" value="#{rst}" />
+							</a4j:commandButton>
+						</rich:column>
+						<rich:column style="text-align: center;">
+							<a4j:commandButton image="../images/edit.png" style="border:none; width: 20px; height: 20px;" title="ALTERAR" action="#{crudBean.preparaAlterar}" rendered="#{rst.fgAtivo == 'S'}" render="pnFrm, panelTitle, comentTela" >
+								<f:setPropertyActionListener target="#{crudBean.entityAlt}" value="#{rst}" />
+							</a4j:commandButton>
+						</rich:column>
+						<rich:column style="text-align: center;">
+							<a4j:commandButton image="../images/remove.png" style="border:none; width: 20px; height: 20px;" title="INATIVAR" action="#{crudBean.inativar}" rendered="#{rst.fgAtivo == 'S'}" render="pnFrm" onclick="if (!confirm('Deseja realmente inativar este registro?')) return false">
+								<f:setPropertyActionListener target="#{crudBean.entity}" value="#{rst}" />
+							</a4j:commandButton>
+							<a4j:commandButton image="../images/ativar.png" style="border:none; width: 20px; height: 20px;" title="ATIVAR" action="#{crudBean.ativar}" rendered="#{rst.fgAtivo == 'N'}" render="pnFrm" onclick="if (!confirm('Deseja realmente ativar este registro?')) return false">
+								<f:setPropertyActionListener target="#{crudBean.entity}" value="#{rst}" />
+							</a4j:commandButton>
+						</rich:column>						
+					</rich:dataTable>
+				</div>
+				<h:panelGroup style="color: #333333" rendered="#{not empty crudBean.searchResult and crudBean.searching}"><div align="right" style="font-size: 14px;">Foi(ram) encontrado(s) <h:outputText value="#{crudBean.searchResult.size()}"/> registro(s). &nbsp;&nbsp; </div></h:panelGroup>
+				<h:panelGroup style="color: #333333" rendered="#{empty crudBean.searchResult and crudBean.searching}"><div align="right" style="font-size: 14px;">Sua consulta não gerou resultados. &nbsp;&nbsp; </div></h:panelGroup>
+				<div align="center">
+					<rich:dataScroller for="tblData" maxPages="10" rendered="#{not empty crudBean.searchResult and crudBean.searching}"/>
+				</div>
+			</f:subview>
+		</h:panelGrid>
+	</ui:define>
+	
+</ui:composition>

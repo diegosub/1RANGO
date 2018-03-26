@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html 		xmlns="http://www.w3.org/1999/xhtml"
+			xmlns:ui="http://java.sun.com/jsf/facelets"
+			xmlns:h="http://java.sun.com/jsf/html"
+			xmlns:f="http://java.sun.com/jsf/core"
+			xmlns:a4j="http://richfaces.org/a4j"
+			xmlns:rich="http://richfaces.org/rich"
+			xmlns:mj="http://mojarra.dev.java.net/mojarra_ext"
+			xmlns:t="http://myfaces.apache.org/tomahawk">
+			
+	<h:head>
+	
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		
+		<title>
+			<h:outputText value="#{bundle.tituloAplicacao}"/>
+		</title>
+
+		<meta name="viewport" content="width=device-width, initial-scale=1"/>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="keywords" content="Gretong Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
+		Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />		
+		
+		<link href="../css/bootstrap.min.css" rel='stylesheet' type='text/css' />		
+		<link href="../css/recuperarSenha.css" rel='stylesheet' type='text/css' />
+			
+	</h:head>
+
+	<h:body>
+	
+		<rich:popupPanel id="panel_loading" autosized="true" modal="true" style="z-index: 100000;">
+			<table>
+				<tr>
+					<td><h:graphicImage url="../images/ajax-loader.gif" style="border:0px; vertical-align: middle; padding: 5px;" /></td>
+					<td><h:outputText value=" Aguarde..." /></td>
+				</tr>
+			</table>
+		</rich:popupPanel>
+		
+		<a4j:status id="loading" onstart="#{rich:component('panel_loading')}.show();" onstop="#{rich:component('panel_loading')}.hide();" />
+	
+   		<table align="center" border="0" cellpadding="0" cellspacing="0" style="width: 100%">
+			<tbody>
+				<tr>
+					<td bgcolor="#c7191a" style="padding: 15px;">
+						<table border="0" cellpadding="0" cellspacing="0" style="width: 100%">
+							<tbody>
+								<tr>								
+									<td style="width: 58px; text-align: center;"><img src="http://1rango.com.br/img/mail_cad/logo1rango.png" border="0"/></td>
+								</tr>
+							</tbody>
+						</table>
+					</td>
+				</tr>
+				
+				<tr>
+					<td style="padding-top: 60px;">
+						<table border="0" cellpadding="0" cellspacing="0" style="width: 100%; max-width: 923px; text-align: center;">
+							<tbody>
+								<tr>								
+									<td style="font-family: calibri; font-size: 25px; color: #c7191a">Redefina sua <b>senha</b>!</td>
+								</tr>								
+							</tbody>
+						</table>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		
+		<div style="position: relative; margin-top: 30px; padding-top: 30px; padding-bottom: 20px; padding-left: 5px; padding-right: 5px; max-width: 923px; margin: 0 auto; text-align: center;">
+			<h:inputText value="#{crudBean.login}" styleClass="form-control" size="100" id="login">
+            	<f:passThroughAttribute name="placeholder" value="Nova senha"/>
+            </h:inputText>
+			<br/>
+			<h:inputText value="#{crudBean.login}" styleClass="form-control" size="100" id="login">
+            	<f:passThroughAttribute name="placeholder" value="Confirmar nova senha"/>
+            </h:inputText>
+            <br/>
+            <a4j:commandButton id="inserir" styleClass="btn btn-primary" style="width: 30%; height: 45px; font-size: 17px;" value="Atualizar" />
+		</div>		
+
+	</h:body>
+
+</html>

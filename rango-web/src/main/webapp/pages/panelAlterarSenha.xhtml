@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+					  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:a4j="http://richfaces.org/a4j"
+				xmlns:rich="http://richfaces.org/rich"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:t="http://myfaces.apache.org/tomahawk"
+				xmlns:mj="http://mojarra.dev.java.net/mojarra_ext">
+	
+	<f:facet name="header">
+		<h:panelGroup>
+			<h:outputText value="Alterar Senha" />
+		</h:panelGroup>
+	</f:facet>
+	
+	<f:facet name="controls">
+		<h:outputLink value="#" onclick="#{rich:component('panAlterarSenha')}.hide(); return false;">
+	    	<h:graphicImage value="../images/remove.png" id="fechaPanelAlterarSenha" style="width: 16px; height: 16px; vertical-align:middle;"/>
+       	</h:outputLink>
+	</f:facet>
+	
+	
+	<div class="modal-body">
+           <div class="form-group">
+          <label class="col-md-4 control-label">Senha Atual</label>
+          <div class="col-md-7">
+          	<h:inputSecret value="#{crudBean.senhaAtual}" styleClass="form-control" maxlength="100">
+           		<f:passThroughAttribute name="placeholder" value="Senha Atual"/>
+           	</h:inputSecret>
+          </div>
+       	</div>	
+           
+           <div class="form-group">
+          <label class="col-md-4 control-label">Nova Senha</label>
+          <div class="col-md-7">
+          	<h:inputSecret value="#{crudBean.novaSenha}" styleClass="form-control" maxlength="100">
+           		<f:passThroughAttribute name="placeholder" value="Nova Senha"/>
+           	</h:inputSecret>
+          </div>
+       	</div>
+       	
+       	<div class="form-group">
+          <label class="col-md-4 control-label">Confirma Nova Senha</label>
+          <div class="col-md-7">
+          	<h:inputSecret value="#{crudBean.confirmaNovaSenha}" styleClass="form-control" maxlength="100">
+           		<f:passThroughAttribute name="placeholder" value="Confirma Nova Senha"/>
+           	</h:inputSecret>
+          </div>
+       	</div>
+	</div>
+	
+	<div class="modal-footer">
+		<a4j:commandButton id="alterar" styleClass="btn btn-primary pull-center" value="Alterar (A)" accesskey="A" oncomplete="validarForm('#{crudBean.mensagem}');" actionListener="#{crudBean.alterarSenha}"/>		
+		<a4j:commandButton id="fechar" styleClass="btn btn-primary pull-center" value="Fechar (X)" accesskey="X" onclick="#{rich:component('panAlterarSenha')}.hide(); return false;"/>
+	</div>
+
+	<script>
+		function validarForm(msg)
+		{
+			if(msg != '')
+			{
+				alert(msg);
+			}
+			else
+			{
+				#{rich:component('panAlterarSenha')}.hide();
+			}
+		}
+	</script>
+	
+</ui:composition>
