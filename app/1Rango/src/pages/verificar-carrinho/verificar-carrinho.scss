@@ -1,0 +1,33 @@
+page-verificar-carrinho {
+  .cancelar {
+    width: 49%;
+    padding-top: 10px;
+    font-size: 14px;
+    text-transform: none;
+    display: block;
+    margin: 0 auto;
+    border-radius: 5px;
+    height: 4.4rem;
+    background-color: $primary;
+    text-align: center;
+    color: white;
+  }
+
+  .visualizar {
+    width: 49%;
+    padding-top: 10px;
+    text-align: center;
+    font-size: 14px;
+    text-transform: none;
+    display: block;
+    margin: 0 auto;
+    border-radius: 5px;
+    height: 4.4rem;
+    background-color: #3c7508;
+    color: white;
+  }
+
+  .text {
+    padding: 20px;
+  }
+}

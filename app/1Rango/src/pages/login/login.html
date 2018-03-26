@@ -1,0 +1,73 @@
+<ion-header>
+    <ion-navbar hideBackButton="true">
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title></ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content class="login">
+    <img class="logo" src="assets/img/logo1rango.png">
+
+    <!--inputs-->
+    <!--email-->
+    <form [formGroup]="valForm" (submit)="OnLogin($event, valForm.value)">
+        <ion-row>
+            <ion-col col-12>
+                <ion-item>
+                    <ion-label>{{"E-mail:" | translate}}</ion-label>
+                    <ion-input class="form-control" id="exampleInputEmail1" type="email" name="email"
+                               placeholder="Informe seu e-mail"
+                               autocomplete="off" formControlName="email" required></ion-input>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+        <!--password-->
+        <ion-row>
+            <ion-col col-12>
+                <ion-item>
+                    <ion-label>{{"Senha:" | translate}}</ion-label>
+                    <ion-input id="exampleInputPassword1" type="password"
+                               name="password" placeholder="Informe sua senha" formControlName="password"
+                               required=""></ion-input>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+
+        <!--forget-->
+        <ion-row>
+            <ion-col col-12>
+              <a (click)="esqueceuSenha()">
+                <p text-center>{{"Esqueceu sua senha?"}}</p>
+              </a>
+            </ion-col>
+        </ion-row>
+        <!--button-->
+        <ion-row>
+            <ion-col col-12>
+                <button class="login-btn" type="submit" [disabled]="!valForm.valid" ion-button>{{"Login" | translate}}
+                </button>
+            </ion-col>
+        </ion-row>
+
+        <!-- <ion-row>
+            <ion-col col-12>
+                <button class="login-btn-fb" type="submit" [disabled]="!valForm.valid" ion-button>{{"Logar com Facebook" | translate}}
+                </button>
+            </ion-col>
+        </ion-row> -->
+    </form>
+
+
+
+
+    <!--go to registration-->
+    <ion-row>
+        <ion-col col-12>
+            <a (click)="Register()">
+                <p text-center>{{"REGISTRE-SE AGORA !" | translate}}</p>
+            </a>
+        </ion-col>
+    </ion-row>
+</ion-content>

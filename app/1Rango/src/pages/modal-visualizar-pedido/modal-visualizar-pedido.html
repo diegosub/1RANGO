@@ -1,0 +1,104 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Visualizar</ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="closeModal()"><img src="assets/img/close.png" style="height: 21px; width:21px; vertical-align: middle;"/></button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <div class="panel-header">
+	    <div class="title-panel">Dados do Pedido</div>
+      <div style="padding-left: 15px; padding-right: 15px;">
+        <p><b>Código:</b> {{idPedido}} </p>
+        <p><b>Estabelecimento:</b> {{dsEstabelecimento}} </p>
+        <p><b>Data do Pedido:</b> {{strDataPedido}} </p>
+      </div>
+
+      <div class="title-panel">Acompanhamento</div>
+      <div style="padding-left: 15px; padding-right: 15px;">
+        <p *ngIf="strDataPedido != null">{{strDataPedido}} - Pedido realizado</p>
+        <p *ngIf="strDataPedido != null">{{strDataPedido}} - Aguardando confirmação</p>
+        <p *ngIf="strDataRecebimento != null">{{strDataRecebimento}} - Confirmado</p>
+        <p *ngIf="strDataCancelamento != null">{{strDataCancelamento}} - Cancelado</p>
+        <p *ngIf="strDataConclusao != null">{{strDataConclusao}} - Concluído </p>
+
+        <p *ngIf="dsMotivoCancelamento != null"><b>Motivo do cancelamento:</b> {{dsMotivoCancelamento}} </p>
+      </div>
+
+      <div class="title-panel">Produtos</div>
+      <div style="padding: 15px;">
+        <ion-list *ngFor="let pedidoProduto of PedidoProdutos ; let i=index " class="padding">
+          {{pedidoProduto.qtProduto}} x {{pedidoProduto.dsProduto}} {{pedidoProduto.dsAdicional}} <span *ngIf="pedidoProduto.dsObservacao != null">Obs: {{pedidoProduto.dsObservacao}}</span>
+        </ion-list>
+      </div>
+
+
+      <div *ngIf="idAvaliacao != null" class="title-panel">Avaliação</div>
+
+      <div *ngIf="idAvaliacao != null" class="item item-body">
+        <div style="padding: 1px;">
+          <div style="padding-top: 30px; padding-bottom: 40px; text-align: center; font-size: 10px;">
+            <div style="float: left; width: 20%; ">
+              <img src="assets/img/star-on.gif" style=" height: 24px;" *ngIf="vlAvaliacao >= 1"/>
+              <img src="assets/img/star-off.png" style=" height: 22px;" *ngIf="vlAvaliacao < 1"/>
+            </div>
+
+            <div style="float: left; width: 20%; ">
+              <img src="assets/img/star-on.gif" style=" height: 24px;" *ngIf="vlAvaliacao >= 2"/>
+              <img src="assets/img/star-off.png" style=" height: 22px;" *ngIf="vlAvaliacao < 2"/>
+            </div>
+
+            <div style="float: left; width: 20%;">
+              <img src="assets/img/star-on.gif" style=" height: 24px;" *ngIf="vlAvaliacao >= 3"/>
+              <img src="assets/img/star-off.png" style=" height: 22px;" *ngIf="vlAvaliacao < 3"/>
+            </div>
+
+            <div style="float: left; width: 20%;">
+              <img src="assets/img/star-on.gif" style=" height: 24px;" *ngIf="vlAvaliacao >= 4"/>
+              <img src="assets/img/star-off.png" style=" height: 22px;" *ngIf="vlAvaliacao < 4"/>
+            </div>
+
+            <div style="float: right; width: 20%; padding-bottom: 5px;">
+              <img src="assets/img/star-on.gif" style=" height: 24px;" *ngIf="vlAvaliacao >= 5"/>
+              <img src="assets/img/star-off.png" style=" height: 22px;" *ngIf="vlAvaliacao < 5"/>
+            </div>
+          </div>
+	      </div>
+	    </div>
+
+      <div style="text-align: center;">
+          {{dsAvaliacao}}
+      </div>
+
+      <div class="title-panel">Mais informações</div>
+      <div style="padding-left: 15px; padding-right: 15px;">
+        <p><b>Tipo:</b> <span *ngIf="idTipoPedido == 1">Delivery</span> <span *ngIf="idTipoPedido == 2">Retirada</span> </p>
+        <p><b>Pagamento:</b> <span *ngIf="idFormaPagamento == 1">Dinheiro</span> <span *ngIf="idFormaPagamento == 2">Cartão</span></p>
+        <p><b>Valor Total: </b> {{dsValorGeral}}</p>
+
+        <p *ngIf="idFormaPagamento == 1"><b>Troco: </b> {{dsTroco}}</p>
+        <p *ngIf="idFormaPagamento == 2"><b>Cartão: </b> {{dsCartao}}</p>
+
+        <p *ngIf="dsObservacao != null"><b>Obs: </b> {{dsObservacao}}</p>
+      </div>
+
+      <div class="title-panel" *ngIf="idEndereco != null">Endereço de entrega</div>
+      <div *ngIf="idEndereco != null" style="padding: 15px;">
+        <div style="width: 100%; float: right; padding-bottom: 5px;">
+          {{dsRua}}, {{dsNumero}}
+        </div>
+        <div style="padding-bottom: 5px;">
+          {{dsBairro}}, {{dsCidade}}/{{siglaEstado}}
+        </div>
+        <div style="padding-bottom: 5px;">
+          CEP: {{dsCep}}
+        </div>
+      </div>
+      
+	</div>
+</ion-content>

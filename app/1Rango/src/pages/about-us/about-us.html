@@ -1,0 +1,64 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>{{"Sobre nós"}}</ion-title>
+        <ion-buttons end>
+            <button ion-button icon-only color="royal" (click)="navcart()" class="header-btn-cart">
+                <ion-icon name="cart"></ion-icon>
+                <ion-badge class="carts" item-right color="danger">{{noOfItems}}</ion-badge>
+            </button>
+        </ion-buttons>
+    </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+    <ion-slides initialSlide=0 speed=3000 loop=true autoplay=1 dir="rtl">
+        <ion-slide>
+            <img src="assets/img/about_us.jpg" class="slider-img">
+            <div class="card-title">
+                {{"Comodidade"}}
+            </div>
+        </ion-slide>
+        <ion-slide>
+            <img src="assets/img/about-us.jpg" class="slider-img">
+            <div class="card-title">
+                {{"Satisfação dos usuários"}}
+            </div>
+        </ion-slide>
+    </ion-slides>
+
+    <!--about-->
+    <div class="wrapper">
+        <h4 class="heading">{{"Sobre nós"}} </h4>
+        <p class="details">
+            O 1Rango! é uma plataforma que busca facilitar o seu pedido usando o canal de comunicação que mais cresce no mundo: a internet.
+            <br/>
+            Você pode realizar diversos pedidos (via web ou via aplicativo), e o estabelecimento receber de forma rápida e segura.
+            <br/>
+            Não fique de fora dessa! Se bater a fome, pede 1Rango!
+        </p>
+
+        <h4 class="heading">{{"Como pedir?"}} </h4>
+        <p class="details">
+            O 1Rango! disponibiliza duas opções para você realizar seu pedido.
+            <br/>
+            Web: Acesse o site www.1rango.com.br
+            <br/>
+            Aplicativo: Faça o download do 1Rango! na AppStore ou GooglePlay
+            <br/>
+            A partir de um cadastro simples, você pode encontrar todos os estabelecimentos vinculados ao 1Rango! e realizar seu pedido durante o
+            horário de funcionamento do estabelecimento selecionado.
+            <br/>
+            O 1Rango! é totalmente grátis!!!
+            <br/>
+            Realize seu pedido, informe seu endereço, escolha a forma de pagamento e aguarde seu pedido.
+        </p>
+
+        <ion-card>
+            <ion-card-content style="text-align: center; color: #b52e31">
+                www.1rango.com.br
+            </ion-card-content>
+        </ion-card>
+    </div>
+
+</ion-content>

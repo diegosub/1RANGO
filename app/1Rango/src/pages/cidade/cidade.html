@@ -1,0 +1,28 @@
+<ion-header>
+    <ion-navbar hideBackButton="true">
+        <button ion-button menuToggle>
+          <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title class="title">{{"Cidade"}}</ion-title>
+        <ion-buttons end>
+            <button ion-button icon-only color="royal" (click)="navcart()" class="header-btn-cart">
+                <ion-icon name="cart"></ion-icon>
+                <ion-badge class="carts" item-right color="danger">{{noOfItems}}</ion-badge>
+            </button>
+        </ion-buttons>
+    </ion-navbar>
+</ion-header>
+
+<ion-content style="background-color: #ead5b6 !important;">
+    <ion-card *ngFor="let cidade of Cidades" style="border-radius: 8px;">
+
+            <ion-item style="display:inherit !important;" (click)="navigate(cidade.idCidade)">
+              <div style="font-family: calibri">
+                <div style="float: left; width: 80%">{{cidade.dsSiglaEstado}} - {{cidade.dsCidade}}</div>
+
+                <div style="text-align: right;"><span style="vertical-align: top;">{{cidade.nrTotalEstabelecimento}}</span> <img src="assets/img/online.ico" style="height: 18px; width: 18px; display:inline;"></div>
+              </div>
+            </ion-item>
+
+    </ion-card>
+</ion-content>

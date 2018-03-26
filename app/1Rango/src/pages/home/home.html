@@ -1,0 +1,48 @@
+<ion-header>
+    <ion-navbar hideBackButton="true">
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-navbar>
+</ion-header>
+
+
+<ion-content class="home">
+    <img class="logo" src="assets/img/logo1rango.png">
+
+    <form>
+        <br/><br/><br/><br/>
+        <br/><br/>
+        <!--button-->
+        <ion-row *ngIf="isLoggedin()">
+            <ion-col col-12>
+                <p style="text-align: center;">Seja bem vindo, {{nomeUsuario}}</p>
+            </ion-col>
+        </ion-row>
+
+        <ion-row>
+            <ion-col col-12>
+              <button class="home-btn" (click)="redirectToCidade()" ion-button>{{"Escolher Cidade" | translate}}
+              </button>
+            </ion-col>
+        </ion-row>
+
+        <ion-row *ngIf="!isLoggedin()">
+            <ion-col col-12>
+                <button class="home-btn" (click)="redirectToLogin()" ion-button>{{"Entrar/Cadastrar" | translate}}
+                </button>
+            </ion-col>
+        </ion-row>
+
+<br/><br/><br/>
+        <ion-row>
+            <ion-col style="text-align: center;" col-12>
+                <a class="termo">
+                    {{"TERMOS DE USO" | translate}}
+                </a>
+            </ion-col>
+        </ion-row>
+    </form>
+
+
+</ion-content>

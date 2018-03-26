@@ -1,0 +1,143 @@
+<ion-menu persistent="true" class="menu"
+  [content]="content" *ngIf="this.platform.dir()==='ltr'"
+         side="left">
+  <ion-content class="sidebar-menu">
+    <ion-row class="img-name-row">
+      <ion-col >
+        <img class="user-img" src="{{imageUrl}}">
+      </ion-col >
+    </ion-row>
+
+
+    <button menuClose class="menu-item" ion-item (click)="home()">
+      <ion-icon name="home" item-left></ion-icon>
+      {{'Início'}}
+    </button>
+
+    <button *ngIf="isLoggedin()" menuClose class="menu-item" ion-item (click)="dado()">
+      <ion-icon name="contact" item-left></ion-icon>
+      {{'Meus Dados'}}
+    </button>
+
+    <button *ngIf="isCart()" menuClose class="menu-item" ion-item (click)="addToCart()">
+      <ion-icon name="cart" item-left></ion-icon>
+      {{'Meu Carrinho'}}
+      <ion-badge class="menu-badge">{{noOfItemsInCart}}</ion-badge>
+    </button>
+
+    <button *ngIf="isLoggedin()" menuClose class="menu-item" ion-item (click)="endereco()">
+      <ion-icon name="pin" item-left></ion-icon>
+      {{'Meus Endereços'}}
+    </button>
+
+    <button *ngIf="isLoggedin()" menuClose class="menu-item" ion-item
+            (click)="meusPedidos()">
+      <ion-icon name="timer" item-left></ion-icon>
+      {{'Meus Pedidos'}}
+    </button>
+
+    <button *ngIf="isLoggedin()" menuClose class="menu-item" ion-item (click)="favorito()">
+      <ion-icon name="heart" item-left></ion-icon>
+      {{'Meus Favoritos'}}
+    </button>
+
+    <button menuClose class="menu-item" ion-item
+            (click)="contact()">
+      <ion-icon name="call" item-left></ion-icon>
+      {{'Contato'}}
+    </button>
+
+    <button menuClose class="menu-item" ion-item
+            (click)="aboutUs()">
+      <ion-icon name="contacts" item-left></ion-icon>
+      {{'Sobre'}}
+    </button>
+
+
+    <button *ngIf="!isLoggedin()" menuClose class="menu-item" ion-item (click)="login()">
+      <ion-icon name="log-in" item-left></ion-icon>
+      {{'Login'}}
+    </button>
+    <button *ngIf="isLoggedin()" ion-item (click)="logout()" menuClose class="menu-item">
+      <ion-icon name="log-out" item-left></ion-icon>
+      {{'Logout'}}
+    </button>
+
+
+  </ion-content>
+</ion-menu>
+
+<ion-menu persistent="true" class="menu"
+     [content]="content"  *ngIf="this.platform.dir()==='rtl'"
+         side="right">
+  <ion-content class="sidebar-menu">
+    <ion-row class="img-name-row">
+      <ion-col >
+        <img class="user-img" src="{{imageUrl}}">
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col *ngIf="isLoggedin()">
+        <p class="user-name">{{name}}</p>
+      </ion-col>
+    </ion-row>
+
+
+    <button menuClose class="menu-item" ion-item (click)="home()">
+      <ion-icon name="home" item-left></ion-icon>
+      {{'Início'}}
+    </button>
+
+    <button *ngIf="isLoggedin()" menuClose class="menu-item" ion-item (click)="dado()">
+      <ion-icon name="contact" item-left></ion-icon>
+      {{'Meus Dados'}}
+    </button>
+
+    <button *ngIf="isCart()" menuClose class="menu-item" ion-item (click)="addToCart()">
+      <ion-icon name="cart" item-left></ion-icon>
+      {{'Meu Carrinho'}}
+      <ion-badge class="menu-badge">{{noOfItemsInCart}}</ion-badge>
+    </button>
+
+    <button *ngIf="isLoggedin()" menuClose class="menu-item" ion-item (click)="endereco()">
+      <ion-icon name="pin" item-left></ion-icon>
+      {{'Meus Endereços'}}
+    </button>
+
+    <button *ngIf="isLoggedin()" menuClose class="menu-item" ion-item
+            (click)="meusPedidos()">
+      <ion-icon name="timer" item-left></ion-icon>
+      {{'Meus pedidos'}}
+    </button>
+
+    <button *ngIf="isLoggedin()" menuClose class="menu-item" ion-item (click)="favorito()">
+      <ion-icon name="heart" item-left></ion-icon>
+      {{'Meus Favoritos'}}
+    </button>
+
+    <button menuClose class="menu-item" ion-item
+            (click)="contact()">
+      <ion-icon name="call" item-left></ion-icon>
+      {{'Contato'}}
+    </button>
+
+    <button menuClose class="menu-item" ion-item
+            (click)="aboutUs()">
+      <ion-icon name="contacts" item-left></ion-icon>
+      {{'Sobre'}}
+    </button>
+
+
+    <button *ngIf="!isLoggedin()" menuClose class="menu-item" ion-item (click)="login()">
+      <ion-icon name="log-in" item-left></ion-icon>
+      {{'Login'}}
+    </button>
+    <button *ngIf="isLoggedin()" ion-item (click)="logout()" menuClose class="menu-item">
+      <ion-icon name="log-out" item-left></ion-icon>
+      {{'Logout'}}
+    </button>
+  </ion-content>
+</ion-menu>
+
+<!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->
+<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>

@@ -1,0 +1,42 @@
+
+<ion-header>
+
+  <ion-navbar hideBackButton="true">
+    <ion-title>Sucesso</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <div style="text-align:center; padding:10px;"><img src="assets/img/sucesso.png" style="height: 60px; width: 60px;"/> </div>
+
+  <div class="topo">
+    Seu Pedido foi enviado para o estabelecimento!
+  </div>
+
+  <div class="corpo">
+    <div  style="padding: 5px;">
+      Codigo do pedido: {{idPedido}}
+    </div>
+    <div  style="padding: 5px;">
+      Estabelecimento: {{dsEstabelecimento}}
+    </div>
+    <div style="text-align: center; padding-top: 30px;     padding-bottom: 10px;">
+      Status do Pedido
+      <br/>
+    </div>
+
+    <div style="text-align: center; padding: 20px;  background-color: #de8b15; color: white;">
+      Aguardando confirmação do estabelecimento
+    </div>
+  </div>
+
+  <div style="padding-top: 30px">
+
+      <div style="float:left;" (click)="inicio();" class="btn">Início</div>
+      <div style="float:right;" (click)="meusPedidos();" class="btn">Meus Pedidos</div>
+
+  </div>
+</ion-content>

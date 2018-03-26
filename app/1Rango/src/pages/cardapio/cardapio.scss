@@ -1,0 +1,57 @@
+page-cardapio {
+
+  .header-estab{
+    height: 250px;
+    background: url("../assets/img/bg.jpg") no-repeat center;
+    padding: 10px;
+  }
+
+  .logo{
+    float: left;
+    height: 100px;
+    width: 30%;
+    padding: 10px;
+  }
+
+  .title{
+    padding: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+  }
+
+  .img{
+    border-radius: 50%;
+    height: 80px;
+    width: 80px;
+  }
+
+  .info{
+    color: #e2e1e1;
+    padding: 8px;
+    border: 1px solid;
+    width: 40%;
+    text-align: center;
+    font-size: 12px;
+  }
+
+  .statuson {
+    text-align: center;
+    padding: 10px;
+    border-radius: 7px;
+    background-color: #009147;
+    color: white;
+  }
+
+  .statusoff {
+    text-align: center;
+    padding: 10px;
+    border-radius: 7px;
+    background-color: #d9534f;
+    color: white;
+  }
+
+  .fundo {
+      background-color: #ead5b6 !important;
+  }
+}

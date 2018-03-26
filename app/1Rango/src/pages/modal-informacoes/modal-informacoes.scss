@@ -1,0 +1,30 @@
+page-modal-informacoes {
+  .title-panel{
+    background-color: #ededed;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(white), to(#ededed));
+    background-image: -webkit-linear-gradient(top, white, #ededed);
+    background-image: -moz-linear-gradient(top, white, #ededed);
+    background-image: -ms-linear-gradient(top, white, #ededed);
+    background-image: -o-linear-gradient(top, white, #ededed);
+    background-image: linear-gradient(top, white, #ededed);
+    -webkit-border-radius: 2px 2px 0 0;
+    -moz-border-radius: 2px 2px 0 0;
+    border-radius: 2px 2px 0 0;
+    border-bottom: 1px solid #dbdbdb;
+    height: 44px;
+    padding: 0 15px;
+    line-height: 44px;
+    color: gray;
+    font-weight: bold;
+  }
+
+  .horario{
+    display: inline;
+    margin: 0px;
+  }
+
+  .horario-item{
+    font-size: 12px;
+    background-color: #FFFFE0;
+  }
+}

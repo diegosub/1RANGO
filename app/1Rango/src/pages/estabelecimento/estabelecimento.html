@@ -1,0 +1,57 @@
+<ion-header>
+    <ion-navbar hideBackButton="true">
+        <button ion-button menuToggle>
+          <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title class="title">{{"Estabelecimento"}}</ion-title>
+        <ion-buttons end>
+            <button ion-button icon-only color="royal" (click)="navcart()" class="header-btn-cart">
+                <ion-icon name="cart"></ion-icon>
+                <ion-badge class="carts" item-right color="danger">{{noOfItems}}</ion-badge>
+            </button>
+        </ion-buttons>
+    </ion-navbar>
+</ion-header>
+
+<ion-content class="fundo">
+
+  <div class="tabs-striped tabs-top tabs-background-stable tabs-color-calm" (click)="navCidade()">
+      <div class="tabs tabs-icon-left">
+          <div style="padding: 6px; background-color: #dad4d4; color: #666;">
+              <img src="assets/img/location.png" style="display:inline; height: 18px; width:21px; vertical-align: middle;"/>
+              {{cidade}}
+          </div>
+      </div>
+  </div>
+
+    <ion-searchbar (ionInput)="filtrar($event)" placeholder="{{'Digite o Estabelecimento'}}"></ion-searchbar>
+    <div style="padding: 1px;"></div>
+    <ion-list *ngFor="let estabelecimento of Estabelecimentos ; let i=index " class="padding"><!-- list -->
+        <ion-item text-wrap (click)="navigate(estabelecimento.idEstabelecimento)" style="border-radius: 8px;"><!-- item -->
+            <ion-row class="estabelecimento"><!-- row -->
+                <ion-col col-6 style="max-width: 28%;"><!-- col with 50  width -->
+                    <img src="{{estabelecimento.dsImagem}}" alt="foodname" style="height: 80px; border-radius: 50%;"/>
+                </ion-col>
+                <ion-col col-6 style="min-width: 70%;"><!-- col with 50% width -->
+                    <p class="item-name">{{estabelecimento.dsFantasia}}</p>
+                    <p>{{estabelecimento.dsCategoria}}</p>
+                    <p>
+                       <img src="assets/img/{{estabelecimento.dsIcone}}" style="height: 15px; width: 15px; display:inline;"/>
+                       {{estabelecimento.dsStatus}}
+                    </p>
+
+                    <div style="float: left; width: 70%; color: #666; font-size: smaller;">
+                      <img src="assets/img/tempo.jpg" style="height: 15px; width: 15px; display:inline;"/>
+                      {{estabelecimento.dsDuracao}}
+                    </div>
+                    <div style="text-align: right; color: #DAA520;">
+                      <img src="assets/img/star.png" style="height: 14px; width: 14px; display:inline;"/>
+                      <b>{{estabelecimento.dsClassificacao}}</b>
+                    </div>
+
+                </ion-col>
+            </ion-row><!--end row -->
+        </ion-item><!-- item -->
+    </ion-list>
+
+</ion-content>

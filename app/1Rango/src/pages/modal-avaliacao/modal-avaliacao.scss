@@ -1,0 +1,38 @@
+page-modal-avaliacao {
+  .topo{
+    font-weight: bold;
+    color: #3c7508;
+    font-family: calibri;
+    font-size: 19px;
+    text-align: center;
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .btn {
+    width: 100%;
+    font-size: 17px;
+    text-transform: none;
+    display: block;
+    margin: 0 auto;
+    border-radius: 5px;
+    height: 4.4rem;
+    background-color: $primary;
+  }
+
+  .item {
+    background-color: #e0dddd;
+
+    display: block;
+    margin: 0 auto;
+    font-size: 12px;
+  }
+  .item.item-block .item-inner {
+    border-bottom: solid 1px;
+    border-bottom-color: #cccccc;
+  }
+  .item-input .label {
+    color: $white;
+  }
+}

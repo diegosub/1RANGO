@@ -1,0 +1,111 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Novo Endereço</ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="closeModal()"><img src="assets/img/close.png" style="height: 21px; width:21px; vertical-align: middle;"/></button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content class="fundo">
+
+
+    <form [formGroup]="enderecoForm" (ngSubmit)="onSubmit()" style="padding-top: 10px;">
+      <ion-row>
+          <ion-col col-12>
+              <ion-item>
+                  <ion-label>{{"Descrição:"}}</ion-label>
+                  <ion-input type="text" name="descricao" maxlength="80" placeholder="Ex: Minha casa, trabalho"
+                   autocomplete="off" formControlName="descricao" required=""></ion-input>
+              </ion-item>
+          </ion-col>
+      </ion-row>
+
+      <ion-row>
+          <ion-col col-12>
+              <ion-item>
+                  <ion-label>{{"CEP:"}}</ion-label>
+                  <ion-input type="text" name="cep" (keyup)="cep_mask(this)" (blur)="onCep()"
+                   maxlength="9" autocomplete="off" formControlName="cep" required="" placeholder="Ex: 99999-999"></ion-input>
+              </ion-item>
+          </ion-col>
+      </ion-row>
+
+      <ion-row>
+          <ion-col col-12>
+              <ion-item>
+                  <ion-label>{{"Rua:"}}</ion-label>
+                  <ion-input type="text" name="rua" maxlength="100" autocomplete="off" formControlName="rua" required=""></ion-input>
+              </ion-item>
+          </ion-col>
+      </ion-row>
+
+      <ion-row>
+          <ion-col col-12>
+              <ion-item>
+                  <ion-label>{{"Número:"}}</ion-label>
+                  <ion-input type="text" name="numero" maxlength="10" autocomplete="off" formControlName="numero" required=""></ion-input>
+              </ion-item>
+          </ion-col>
+      </ion-row>
+
+      <ion-row>
+          <ion-col col-12>
+              <ion-item>
+                  <ion-label>{{"Complemento:"}}</ion-label>
+                  <ion-input type="text" name="complemento" maxlength="100" autocomplete="off" formControlName="complemento"></ion-input>
+              </ion-item>
+          </ion-col>
+      </ion-row>
+
+      <ion-row>
+          <ion-col col-12>
+              <ion-item>
+                  <ion-label>{{"Bairro:"}}</ion-label>
+                  <ion-input type="text" name="bairro" maxlength="100" autocomplete="off" formControlName="bairro" required=""></ion-input>
+              </ion-item>
+          </ion-col>
+      </ion-row>
+
+      <ion-row>
+          <ion-col col-12>
+              <ion-item>
+                  <ion-label>{{"Cidade:"}}</ion-label>
+                  <ion-input type="text" name="cidade" autocomplete="off" maxlength="100" formControlName="cidade" required=""></ion-input>
+              </ion-item>
+          </ion-col>
+      </ion-row>
+
+      <ion-row>
+          <ion-col col-12>
+              <ion-item>
+                  <ion-label style="color: white;">{{"Estado:"}}</ion-label>
+                  <ion-select name="uf" formControlName="uf">
+                    <ion-option *ngFor="let estado of Estados" [value]="estado.dsSigla">{{estado.dsEstado}}</ion-option>
+                  </ion-select>
+              </ion-item>
+          </ion-col>
+      </ion-row>
+
+      <ion-row>
+          <ion-col col-12>
+              <ion-item>
+                  <ion-label>{{"Referência:"}}</ion-label>
+                  <ion-input type="text" name="referencia" maxlength="100" autocomplete="off" formControlName="referencia" ></ion-input>
+              </ion-item>
+          </ion-col>
+      </ion-row>
+
+      <div>
+        <ion-row>
+            <ion-col col-12>
+              <button class="btn" type="submit" [disabled]="!enderecoForm.valid" ion-button>{{"Cadastrar"}}
+              </button>
+            </ion-col>
+        </ion-row>
+      </div>
+    </form>
+</ion-content>

@@ -1,0 +1,120 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title class="title">{{"Cardápio"}}</ion-title>
+        <ion-buttons end>
+            <button ion-button icon-only color="royal" (click)="navcart()" class="header-btn-cart">
+                <ion-icon name="cart"></ion-icon>
+                <ion-badge class="carts" item-right color="danger">{{noOfItems}}</ion-badge>
+            </button>
+        </ion-buttons>
+    </ion-navbar>
+</ion-header>
+
+<ion-content class="fundo">
+    <div class="header-estab">
+      <div style="min-height: 110px;">
+        <div class="logo">
+          <img src="{{dsImagem}}" class="img"/>
+        </div>
+        <div class="title">
+            {{dsEstabelecimento}}
+            <br/>
+            <span style="font-size: 12px; font-weight: normal;">
+              {{dsCategoria}}
+            </span>
+            <br/>
+            <div style="text-align: right; color: #DAA520; font-size: 16px;">
+              <img src="assets/img/star.png" style="height: 14px; width: 14px; display:inline;"/>
+              {{dsClassificacao}}
+            </div>
+
+        </div>
+      </div>
+
+      <div style="padding: 10px; text-align: center; font-size: 10px; height: 75px">
+        <div style="float: left; width: 25%; color: white;">
+          <img src="assets/img/delivery.png" style=" height: 18px;"/>
+          <br/>
+          Delivery
+          <br/>
+          {{dsDelivery}}
+        </div>
+
+        <div style="float: left; width: 25%; color: white;">
+          <img src="assets/img/retirada.png" style=" height: 18px;"/>
+          <br/>
+          Retirada
+          <br/>
+          {{dsRetirada}}
+        </div>
+
+        <div style="float: left; width: 25%; color: white;">
+          <img src="assets/img/minimo.png" style=" height: 18px;"/>
+          <br/>
+          Pedido Mínimo
+          <br/>
+          {{dsVlMinimo}}
+        </div>
+
+        <div style="float: right; width: 25%; color: white;" (click)="abrirModalBairros(idEstabelecimento)">
+          <img src="assets/img/taxa.png" style=" height: 18px;"/>
+          <br/>
+          Taxa Entrega
+          <br/>
+          {{dsTxEntrega}}
+        </div>
+      </div>
+
+      <div style="text-align: center; font-size: 10px; height: 175px">
+        <div class="info" style="float: left" (click)="info(idEstabelecimento);">
+          Informações
+        </div>
+
+        <div style="float: left; width: 20%; color: white;" (click)="favoritar()"  *ngIf="dsFavorito == 'N'">
+          <ion-icon name="md-star-outline" style="font-size:30px;"></ion-icon>
+        </div>
+
+        <div style="float: left; width: 20%; color: white;" (click)="desfavoritar()"  *ngIf="dsFavorito == 'S'">
+          <ion-icon name="md-star" style="font-size:30px;"></ion-icon>
+        </div>
+
+        <div class="info" style="float: right;" (click)="visualizarAvaliacoes(idEstabelecimento);">
+          Avaliações
+        </div>
+      </div>
+    </div>
+
+    <div style="padding: 5px;">
+      <div class="statusoff" *ngIf="dsStatus == 'Fechado'">
+        <b>Estabelecimento {{dsStatus}}</b>
+      </div>
+
+      <div class="statuson" *ngIf="dsStatus == 'Aberto'">
+        <b>Estabelecimento {{dsStatus}}</b>
+      </div>
+    </div>
+
+    <ion-card *ngFor="let segmento of Segmentos" style="margin-top: 2px; border-radius:8px;">
+
+            <ion-item style="display:inherit !important; over">
+              <div style="font-family: calibri">
+                <div style="float: left; width: 100%; color: #b52e31; overflow: unset;">
+                  <span><b>{{segmento.dsSegmento}}</b></span>
+
+                      <ion-list *ngFor="let produto of segmento.listaProduto">
+                          <ion-item (click)="adicional(produto.idProduto, idEstabelecimento, dsEstabelecimento)" style="display:inherit !important; padding-left: 0px; white-space: initial; border-top: 0px; border-bottom: 0px;" >
+                		          <span style="white-space: initial;">{{produto.dsProduto}}</span>
+                              <br/>
+                              <span style="color: #b5b2b2; font-size: 13px; white-space: initial;">{{produto.dsAdicional}}</span>
+                              <br/>
+                              <span style="color: #3c7508; font-size: 13px; white-space: initial;">R$ {{produto.dsVlrProduto}}</span>
+                          </ion-item>
+                      </ion-list>
+
+
+                </div>
+              </div>
+            </ion-item>
+
+    </ion-card>
+</ion-content>

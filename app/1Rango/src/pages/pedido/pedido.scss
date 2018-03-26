@@ -1,0 +1,98 @@
+page-pedido {
+
+  .topo{
+    font-weight: bold;
+    color: #3c7508;
+    font-family: calibri;
+    font-size: 19px;
+    text-align: center;
+    padding-top: 10px;
+  }
+
+  .fundo {
+      background: url("../assets/img/c3.jpg") no-repeat center;
+  }
+
+  .item {
+    background-color: #bbb8b8;
+    width: 99%;
+    display: block;
+    margin: 0 auto;
+  }
+  .item.item-block .item-inner {
+    border-bottom: solid 1px;
+    border-bottom-color: #cccccc;
+  }
+  .item-input .label {
+    color: $white;
+  }
+
+  .btn {
+    width: 50%;
+    color: white;
+    font-size: 14px;
+    text-transform: none;
+    display: block;
+    margin: 0 auto;
+    border-radius: 5px;
+    height: 3.4rem;
+    background-color: $primary;
+  }
+
+  .btnConcluir {
+      width: 100%;
+      font-size: 17px;
+      text-transform: none;
+      display: block;
+      margin: 0 auto;
+      border-radius: 5px;
+      height: 4.4rem;
+      background-color: #3c7508;
+  }
+
+  .info{
+    color: #f7e7e7;
+    padding: 8px;
+    border: 1px solid;
+    width: 100%;
+    text-align: center;
+    font-size: 15px;
+  }
+
+  .price-details {
+    display: flex;
+    width: 97%;
+  }
+
+  .calculate {
+    margin: 0 4px;
+    .bill-detail {
+      color: rgb(102, 102, 102) !important;
+      padding: 10px 3px 0px 2px;
+      font-size: 14px;
+      font-weight: 400;
+      display: flex;
+      font-weight: bold;
+      justify-content:space-between;
+    }
+    .cart-total {
+      font-size: 1.2em;
+      padding: 7px 0px;
+      color: green;
+      display: flex;
+      justify-content:space-between;
+      span {
+        float: right;
+        font-weight: 700;
+        color: green
+      }
+    }
+  }
+h4 {
+    font-size: 2.2rem;
+    text-align: center;
+    color: $white;
+
+  }
+
+}

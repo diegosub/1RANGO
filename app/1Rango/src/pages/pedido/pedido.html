@@ -1,0 +1,195 @@
+<!--
+  Generated template for the PedidoPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Finalizar</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content class="fundo">
+
+  <div class="topo">
+    Hora de finalizar seu pedido no estabelecimento {{dsEstabelecimento}}!
+  </div>
+
+  <div style="padding: 15px">
+    <p style="color: #b9b0b1;"><b>Seu pedido é para: <span style="color: #b52e31;">*</span></b></p>
+
+    <div>
+      <ion-list radio-group [(ngModel)]="tipoPedido" (ionChange)="changeTipo()">
+        <ion-item *ngIf="fgDelivery == 'S'">
+          <ion-label>Delivery</ion-label>
+          <ion-radio value="1" color="primary"></ion-radio>
+        </ion-item>
+
+        <ion-item *ngIf="fgRetirada == 'S'">
+          <ion-label>Retirada</ion-label>
+          <ion-radio value="2" color="primary"></ion-radio>
+        </ion-item>
+      </ion-list>
+    </div>
+
+
+
+    <div *ngIf="tipoPedido == 1" style="padding-botton: 10px;">
+      <p style="color: #b9b0b1;"><b>Escolha o endereço de entrega: <span style="color: red;">*</span></b></p>
+
+      <ion-card *ngFor="let endereco of Enderecos" style="padding: 10px; border-radius: 10px; background-color: #cccccc;" (click)="selecionarEndereco(endereco.idEndereco)">
+
+            <div style="font-family: calibri; color: gray; font-size: 16px;">
+              <div style="float:left; width: 93%;">
+                <img src="assets/img/location.png" style="display:inline; height: 18px; width:21px; vertical-align: middle;"/>
+                <b>{{endereco.dsEndereco}}</b>
+              </div>
+              <div *ngIf="idEndereco == endereco.idEndereco">
+                <img src="assets/img/selecionado.png" style="display:inline; height: 16px; width:16px; vertical-align: middle;"/>
+              </div>
+              <div *ngIf="idEndereco != endereco.idEndereco">
+                <img src="assets/img/desmarcado.png" style="display:inline; height: 16px; width:16px; vertical-align: middle;"/>
+              </div>
+            </div>
+
+            <div style="font-family: calibri; font-size: 13px; width: 100%; float: right;">
+              {{endereco.dsRua}}, {{endereco.dsNumero}}
+            </div>
+
+            <div style="font-family: calibri; font-size: 13px;">
+              {{endereco.dsBairro}}, {{endereco.dsCidade}}/{{endereco.siglaEstado}}
+            </div>
+
+            <div style="font-family: calibri; font-size: 13px;">
+              CEP: {{endereco.dsCep}}
+            </div>
+
+      </ion-card>
+
+      <ion-row  style="padding-top: 5px;">
+          <ion-col col-12>
+              <button class="btn" (click)="abrirModalNovoEndereco()">{{"Novo Endereço"}}</button>
+          </ion-col>
+      </ion-row>
+
+      <p style="color: #b9b0b1;"><b>Escolha o bairro de entrega (Taxa): <span style="color: red;">*</span></b></p>
+
+      <div class="info" (click)="abrirModalBairros(idEstabelecimento);">
+          <b>{{dsBairroTaxa}}</b> <span *ngIf="idBairroTaxa != 0">| R${{strValorTaxa}}</span>
+      </div>
+
+
+      <p style="color: #b9b0b1;"><b>Forma de Pagamento: <span style="color: red;">*</span></b></p>
+
+      <div>
+        <ion-list radio-group [(ngModel)]="formaPagamento" (ionChange)="changeFormaPagamento()">
+          <ion-item *ngIf="fgDinheiroDelivery == 'S'">
+            <ion-label>Dinheiro</ion-label>
+            <ion-radio value="1"></ion-radio>
+          </ion-item>
+
+          <ion-item *ngIf="fgCartaoDelivery == 'S'">
+            <ion-label>Cartao</ion-label>
+            <ion-radio value="2"></ion-radio>
+          </ion-item>
+        </ion-list>
+      </div>
+    </div>
+
+    <div *ngIf="tipoPedido == 2">
+      <p style="color: #b9b0b1;"><b>Forma de Pagamento: <span style="color: red;">*</span></b></p>
+
+      <div>
+        <ion-list radio-group [(ngModel)]="formaPagamento" (ionChange)="changeFormaPagamento()">
+          <ion-item *ngIf="fgDinheiroRetirada == 'S'">
+            <ion-label>Dinheiro</ion-label>
+            <ion-radio value="1"></ion-radio>
+          </ion-item>
+
+          <ion-item *ngIf="fgCartaoRetirada == 'S'">
+            <ion-label>Cartao</ion-label>
+            <ion-radio value="2"></ion-radio>
+          </ion-item>
+        </ion-list>
+      </div>
+    </div>
+
+    <!-- Comum para os dois tipos (delivery e retirada)-->
+    <div *ngIf="formaPagamento == 1">
+      <ion-row>
+          <ion-col col-12>
+              <ion-item>
+                  <ion-label style="color: black;">{{"Troco para:"}}</ion-label>
+                  <ion-input type="text" (blur)="formataCompoDecimal();" maxlength="8" name="strVlPagamento" [(ngModel)]="strVlPagamento" autocomplete="off"></ion-input>
+              </ion-item>
+          </ion-col>
+      </ion-row>
+
+      <div style="text-align:center; color: gray; font-size: 11px;">
+        Obs: Informe este campo somente se você precisar de troco.
+      </div>
+    </div>
+    <!-- -->
+
+
+    <div *ngIf="tipoPedido == 1 && formaPagamento == 2">
+      <ion-row>
+          <ion-col col-12>
+              <ion-item>
+                  <ion-label style="color: black;">{{"Cartao:"}} <span style="color: red;">*</span></ion-label>
+                  <ion-select [(ngModel)]="idCartao">
+                    <ion-option *ngFor="let cartao of CartoesDelivery" [value]="cartao.idCartao">{{cartao.dsCartao}}</ion-option>
+                  </ion-select>
+              </ion-item>
+          </ion-col>
+      </ion-row>
+    </div>
+
+    <div *ngIf="tipoPedido == 2 && formaPagamento == 2">
+      <ion-row>
+          <ion-col col-12>
+              <ion-item>
+                  <ion-label style="color: black;">{{"Cartao:"}}  <span style="color: red;">*</span></ion-label>
+                  <ion-select [(ngModel)]="idCartao">
+                    <ion-option *ngFor="let cartao of CartoesRetirada" [value]="cartao.idCartao">{{cartao.dsCartao}}</ion-option>
+                  </ion-select>
+              </ion-item>
+          </ion-col>
+      </ion-row>
+    </div>
+
+    <div *ngIf="tipoPedido == 1 || tipoPedido == 2">
+      <p style="color: #b9b0b1;"><b>Observações:</b></p>
+
+      <div>
+        <ion-item>
+          <ion-input [(ngModel)]='observacao' name="observacao" placeholder="Adicione sua observação" maxlength="100" style="font-size: 13px; padding: 5px;"></ion-input>
+        </ion-item>
+      </div>
+
+      <ion-row class="price-details">
+          <ion-col class="calculate" col-12>
+              <p class="bill-detail">{{"Subtotal"}} <span>R$ {{strSubTotal}}</span></p>
+              <p class="bill-detail" *ngIf="idBairroTaxa != 0">{{"Entrega"}} <span>R$ {{strValorTaxa}}</span></p>
+              <p class="cart-total">{{"Total"}} <span>R$ {{strTotal}}</span></p>
+          </ion-col>
+      </ion-row>
+    </div>
+
+    <div>
+      <ion-row>
+          <ion-col col-12>
+            <button class="btnConcluir" (click)="concluir()" [disabled]="fgHabilitarConcluir == 'N'" ion-button>{{"Concluir Pedido"}}
+            </button>
+          </ion-col>
+      </ion-row>
+    </div>
+
+
+  </div>
+
+</ion-content>

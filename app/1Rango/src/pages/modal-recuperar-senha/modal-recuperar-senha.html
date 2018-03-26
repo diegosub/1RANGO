@@ -1,0 +1,45 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Recuperar Senha</ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="closeModal()"><img src="assets/img/close.png" style="height: 21px; width:21px; vertical-align: middle;"/></button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+
+<ion-content class="fundo">
+    <div class="login">
+        <ion-row>
+            <img class="img" [src]="url"><br>
+        </ion-row>
+
+    </div>
+
+    <form (ngSubmit)="onSubmit(f)" [formGroup]="recuperarSenhaForm">
+
+      <ion-row>
+          <ion-col col-12>
+            <ion-item>
+                <ion-label>{{"E-mail:"}}</ion-label>
+                <ion-input type="text" name="email" id="email" placeholder="Informe seu e-mail" maxlength="100" formControlName="email"
+                            required></ion-input>
+            </ion-item>
+          </ion-col>
+      </ion-row>
+
+      <div>
+        <ion-row>
+            <ion-col col-12>
+              <button class="btn" ion-button type="submit" [disabled]="!recuperarSenhaForm.valid">{{"Recuperar"}}</button>
+            </ion-col>
+        </ion-row>
+      </div>
+
+
+    </form>
+
+</ion-content>

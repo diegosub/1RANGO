@@ -1,0 +1,20 @@
+{
+  "name": "1Rango",
+  "app_id": "",
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  }
+
+  ,
+
+  "proxies": [
+    {
+      "path": "/1rango",
+      "proxyUrl": "http://localhost:8080/"
+    }
+  ]
+
+
+
+}

@@ -1,0 +1,64 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Alterar Senha</ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="closeModal()"><img src="assets/img/close.png" style="height: 21px; width:21px; vertical-align: middle;"/></button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+
+<ion-content class="fundo">
+    <div class="login">
+        <ion-row>
+            <img class="img" [src]="url"><br>
+        </ion-row>
+
+    </div>
+
+    <form (ngSubmit)="onSubmit(f)" [formGroup]="alterarSenhaForm">
+      <ion-row>
+          <ion-col col-12>
+            <ion-item>
+                <ion-label>{{"Senha Atual:"}}</ion-label>
+                <ion-input type="password" name="senha" id="senha" placeholder="Informe sua senha atual" maxlength="20" formControlName="senha"
+                            required></ion-input>
+            </ion-item>
+          </ion-col>
+      </ion-row>
+
+      <ion-row>
+          <ion-col col-12>
+            <ion-item>
+                <ion-label>{{"Nova Senha:"}}</ion-label>
+                <ion-input type="password" name="novaSenha" id="novaSenha" placeholder="Informe sua nova senha" maxlength="20" formControlName="novaSenha"
+                            required></ion-input>
+            </ion-item>
+          </ion-col>
+      </ion-row>
+
+      <ion-row>
+          <ion-col col-12>
+            <ion-item>
+                <ion-label>{{"Confirmar:"}}</ion-label>
+                <ion-input type="password" name="confirmar" id="confirmar" placeholder="Confirmar nova senha" maxlength="20" formControlName="confirmar" 
+                            required></ion-input>
+            </ion-item>
+          </ion-col>
+      </ion-row>
+
+      <div>
+        <ion-row>
+            <ion-col col-12>
+              <button class="btn" ion-button type="submit" [disabled]="!alterarSenhaForm.valid">{{"Alterar"}}</button>
+            </ion-col>
+        </ion-row>
+      </div>
+
+
+    </form>
+
+</ion-content>

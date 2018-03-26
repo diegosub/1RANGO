@@ -1,0 +1,105 @@
+page-favorito {
+  .header-btn{
+    margin: 0 10px!important;
+  }
+  h3 {
+    font-size: 2.2rem;
+    text-align: center;
+    color: $primary
+  }
+
+  .item {
+    padding-left: 7px;
+    border-bottom: 2px solid #d5d5d5;
+    .label {
+      margin: 9px 0px 0px 0px;
+    }
+  }
+
+  ion-label {
+    white-space: normal;
+  }
+  .heading {
+    font-size: 15px;
+    font-weight: 700;
+    color: $grey;
+  }
+  .item-md ion-thumbnail img {
+    height: 5em;
+    width: 5em;
+  }
+  .add {
+    background-color: $primary;
+    border-radius: 0px;
+    box-shadow: none;
+  }
+  .delete {
+    border-radius: 0px;
+    box-shadow: none;
+    float: right;
+  }
+  .empty-cart {
+    font-size: 10.2em;
+    display: block;
+    margin: .2em auto 0;
+    color: $danger;
+  }
+  .bg {
+    background-image: url(../assets/img/bg.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  h4 {
+    font-size: 2.2rem;
+    text-align: center;
+    color: $white;
+  }
+  .continue-btn {
+    background-color: $primary !important;
+    color: #fff;
+    padding: 13.5px 30px;
+    box-shadow: none;
+    display: block;
+    margin: 2em auto 0;
+    border-radius: 0;
+  }
+
+  .padding {
+     padding-left: 8px;
+     padding-right: 8px;
+     padding-bottom: 4px;
+  }
+
+  .list {
+    margin: -1px 0 0px 0;
+  }
+
+  .fundo {
+      background-color: #ead5b6 !important;
+  }
+
+  .favorito {
+    img {
+      height: 100px;
+      width: 100%;
+    }
+    .item-name {
+      font-weight: 700;
+      font-size: 15px;
+      padding-top: 3px;
+    }
+    .item-detail {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      line-height: 16px;
+      max-height: 62px;
+
+    }
+    .item-price {
+      font-weight: 700;
+      color: $primary;
+    }
+  }
+}

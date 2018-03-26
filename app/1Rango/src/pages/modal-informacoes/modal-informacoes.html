@@ -1,0 +1,49 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Informações</ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="closeModal()"><img src="assets/img/close.png" style="height: 21px; width:21px; vertical-align: middle;"/></button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <div class="panel-header">
+	    <div class="title-panel">Dados do Estabelecimento</div>
+	    <div class="item item-body">
+	      <div style="padding: 15px;">
+	        <p><b>Tipo de Entrega:</b> {{dsTipoEntrega}}</p>
+          <span *ngIf="fgDelivery == 'S'"><p><b>Tempo Delivery:</b> {{dsDelivery}}</p></span>
+          <span *ngIf="fgRetirada == 'S'"><p><b>Tempo Retirada:</b> {{dsRetirada}}</p></span>
+          <span *ngIf="fgDelivery == 'S'"><p><b>Taxa de Entrega:</b> {{dsEntrega}}</p></span>
+          <p><b>Valor Mínimo do Pedido:</b> {{dsVlMinimo}}</p>
+	      </div>
+	    </div>
+
+      <div class="title-panel">Horário de Funcionamento</div>
+	    <div class="item item-body">
+	      <div style="padding: 15px;">
+	        <ion-card *ngFor="let horario of Horarios" class="horario">
+
+            <div style="float: left; width: 25%"><b>{{horario.dsHorario}}:</b></div>
+            <div>{{horario.hrInicio}} - {{horario.hrFim}}</div>
+          </ion-card>
+	      </div>
+	    </div>
+
+      <div class="title-panel">Formas de Pagamento</div>
+	    <div class="item item-body">
+	      <div style="padding-left: 15px; padding-right: 15px;">
+	        <p><b>Delivery: </b>{{dsFormaPagamentoDelivery}}</p>
+          <span><p><b>Cartões Delivery: </b> {{dsBandeiraDelivery}}</p></span>
+	      </div>
+        <div style="padding-left: 15px; padding-right: 15px;">
+	        <p><b>Retirada: </b>{{dsFormaPagamentoRetirada}}</p>
+          <span><p><b>Cartões Retirada: </b> {{dsBandeiraRetirada}}</p></span>
+	      </div>
+	    </div>
+	</div>
+</ion-content>

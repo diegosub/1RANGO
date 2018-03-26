@@ -1,0 +1,111 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title class="title">{{"Adicional"}}</ion-title>
+        <ion-buttons end>
+            <button ion-button icon-only color="royal" (click)="navcart()" class="header-btn-cart">
+                <ion-icon name="cart"></ion-icon>
+                <ion-badge class="carts" item-right color="danger">{{noOfItems}}</ion-badge>
+            </button>
+        </ion-buttons>
+    </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+
+  <div class="panel-header">
+
+      <div class="produto">
+        {{dsProduto}}
+      </div>
+
+      <div class="adicional">
+        {{dsAdicional}}
+      </div>
+
+      <div class="valor">
+        {{vlrProduto}}
+      </div>
+      <form>
+        <div class="lista">
+
+              <ion-list *ngFor="let segmentoAdicional of SegmentosAdicionais" style="border-bottom: solid 1px; border-bottom-color: #e6e5e5; color: #3c7508;">
+
+                {{segmentoAdicional.dsSegmentoAdicional}} <span style="color: red;" *ngIf="segmentoAdicional.fgObrigatorio == 'S'">*</span>
+
+                <div *ngIf="segmentoAdicional.fgMultiplosItens == 'S'">
+                  <ion-item class="item" *ngFor="let item of segmentoAdicional.listaSegmentoItem" style="margin: 0px;  border-top: 0px; border-bottom: 0px; display: inline-flex;">
+                    <ion-checkbox [(ngModel)]="item.fgSelecionada" name="fgSelecionada" style="margin: 6px;"></ion-checkbox>
+                    <ion-label class="item">
+                      {{item.dsSegmentoItem}}
+                      <span style="color: #3c7508; padding-left: 10px;"> + {{item.strVlAdicional}}</span>
+                    </ion-label>
+                  </ion-item>
+                </div>
+
+                <div *ngIf="segmentoAdicional.fgMultiplosItens == 'N'">
+                  <ion-list  style="margin: 0px;" radio-group [(ngModel)]="segmentoAdicional.dsSelecionado" name="dsSelecionado">
+                    <ion-item class="item" *ngFor="let item of segmentoAdicional.listaSegmentoItem" style=" border-top: 0px; border-bottom: 0px;">
+                      <ion-radio value="{{item.dsSegmentoItem}}¬{{item.strVlAdicional}}¬{{item.vlAdicional}}" name="dsSegmento"></ion-radio>
+                      <ion-label class="item">
+                        {{item.dsSegmentoItem}}
+                        <span style="color: #3c7508; padding-left: 10px;"> + {{item.strVlAdicional}}</span>
+                      </ion-label>
+                    </ion-item>
+                  </ion-list>
+                </div>
+              </ion-list>
+
+        </div>
+
+        <div class="geral">
+          <ion-item style="border: solid 1px; border-color: #d0d0d0; border-radius: 6px;">
+            <ion-label style="font-size: 12px; color: #3c7508; padding-left: 10px;">Quantidade <span style="color: red;">*</span> </ion-label>
+            <ion-select [(ngModel)]="qtdProduto" name="qtdProduto" style="font-size: 15px;" okText="Ok" cancelText="Cancelar">
+              <ion-option value="1">1</ion-option>
+              <ion-option value="2">2</ion-option>
+              <ion-option value="3">3</ion-option>
+              <ion-option value="4">4</ion-option>
+              <ion-option value="5">5</ion-option>
+              <ion-option value="6">6</ion-option>
+              <ion-option value="7">7</ion-option>
+              <ion-option value="8">8</ion-option>
+              <ion-option value="9">9</ion-option>
+              <ion-option value="10">10</ion-option>
+              <ion-option value="11">11</ion-option>
+              <ion-option value="12">12</ion-option>
+              <ion-option value="13">13</ion-option>
+              <ion-option value="14">14</ion-option>
+              <ion-option value="15">15</ion-option>
+              <ion-option value="16">16</ion-option>
+              <ion-option value="17">17</ion-option>
+              <ion-option value="18">18</ion-option>
+              <ion-option value="19">19</ion-option>
+              <ion-option value="20">20</ion-option>
+            </ion-select>
+          </ion-item>
+        </div>
+
+        <div style="padding-left: 15px; padding-right: 15px;">
+          <ion-item>            
+            <ion-input [(ngModel)]='observacao' name="observacao" placeholder="Adicione sua observação" maxlength="100" style="font-size: 13px; padding: 5px;"></ion-input>
+          </ion-item>
+        </div>
+      </form>
+
+      <div>
+        <ion-row>
+            <ion-col col-12>
+              <button class="btn" (click)="adicionarCarrinho()" ion-button>{{"Adicionar ao Carrinho"}}
+              </button>
+            </ion-col>
+        </ion-row>
+      </div>
+
+      <div style="text-align: center; padding: 5px; font-size: 13px;">
+        <span style="color: red;">*</span> Seleção obrigatória
+      </div>
+
+  </div>
+
+</ion-content>

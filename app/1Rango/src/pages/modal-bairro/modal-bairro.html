@@ -1,0 +1,27 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Bairro</ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="closeModal()"><img src="assets/img/close.png" style="height: 21px; width:21px; vertical-align: middle;"/></button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content class="fundo2">
+
+  <ion-card *ngFor="let bairro of Bairros" style="padding: 10px; border-radius: 10px;" (click)="selecionar(bairro.idBairro, bairro.dsBairro, bairro.strValorTaxa, bairro.vlTaxa)">
+
+        <div style="font-family: calibri; color: gray; font-size: 16px;">
+          <div style="float:left; width: 75%;">
+            <b>{{bairro.dsBairro}}</b>
+          </div>
+          <div style="float:right; width: 25%; text-align: right; color: #3c7508">
+            <b>{{bairro.strValorTaxa}}</b>
+          </div>
+        </div>
+
+  </ion-card>
+</ion-content>

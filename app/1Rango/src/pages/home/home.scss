@@ -1,0 +1,29 @@
+page-home {
+
+  .home {
+    background: url("../assets/img/bg.jpg") no-repeat center;
+    background-size: cover;
+    color: $white;
+    .logo {
+      display: block;
+      margin: 0 auto;
+      margin-top: 4em;
+      padding-bottom: 2em;
+    }
+  }
+  .home-btn {
+    width: 80%;
+    font-size: 17px;
+    text-transform: none;
+    display: block;
+    margin: 0 auto;
+    border-radius: 5px;
+    height: 4.4rem;
+    background-color: $primary;
+  }
+
+  .termo {
+    font-size: 12px;
+  }
+
+}

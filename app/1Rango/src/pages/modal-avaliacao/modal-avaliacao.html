@@ -1,0 +1,62 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Avaliar</ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="closeModal()"><img src="assets/img/close.png" style="height: 21px; width:21px; vertical-align: middle;"/></button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <div class="topo">
+    Avalie o estabelecimento de acordo com o atendimento do seu pedido
+  </div>
+
+  <div style="padding-top: 30px; padding-bottom: 40px; text-align: center; font-size: 10px;">
+    <div style="float: left; width: 20%; ">
+      <img src="assets/img/star-on.gif" style=" height: 24px;" (click)="select(1)" *ngIf="valorAvaliacao >= 1"/>
+      <img src="assets/img/star-off.png" style=" height: 22px;" (click)="select(1)" *ngIf="valorAvaliacao < 1"/>
+    </div>
+
+    <div style="float: left; width: 20%; ">
+      <img src="assets/img/star-on.gif" style=" height: 24px;" (click)="select(2)" *ngIf="valorAvaliacao >= 2"/>
+      <img src="assets/img/star-off.png" style=" height: 22px;" (click)="select(2)" *ngIf="valorAvaliacao < 2"/>
+    </div>
+
+    <div style="float: left; width: 20%;">
+      <img src="assets/img/star-on.gif" style=" height: 24px;" (click)="select(3)" *ngIf="valorAvaliacao >= 3"/>
+      <img src="assets/img/star-off.png" style=" height: 22px;" (click)="select(3)" *ngIf="valorAvaliacao < 3"/>
+    </div>
+
+    <div style="float: left; width: 20%;">
+      <img src="assets/img/star-on.gif" style=" height: 24px;" (click)="select(4)" *ngIf="valorAvaliacao >= 4"/>
+      <img src="assets/img/star-off.png" style=" height: 22px;" (click)="select(4)" *ngIf="valorAvaliacao < 4"/>
+    </div>
+
+    <div style="float: right; width: 20%;">
+      <img src="assets/img/star-on.gif" style=" height: 24px;" (click)="select(5)" *ngIf="valorAvaliacao >= 5"/>
+      <img src="assets/img/star-off.png" style=" height: 22px;" (click)="select(5)" *ngIf="valorAvaliacao < 5"/>
+    </div>
+  </div>
+
+  <div style="padding-top: 30px;">
+    <ion-item>
+      <ion-input [(ngModel)]='observacao' name="observacao" placeholder="Adicione seu comentário" maxlength="100" style="font-size: 13px; padding: 5px;"></ion-input>
+    </ion-item>
+  </div>
+
+  <div style="padding-top: 20px;">
+    <ion-row>
+        <ion-col col-12>
+          <button class="btn" (click)="avaliar()" ion-button>{{"Concluir Avaliação"}}
+          </button>
+        </ion-col>
+    </ion-row>
+  </div>
+
+
+</ion-content>

@@ -1,0 +1,97 @@
+<ion-header>
+    <ion-navbar #navbar>
+        <ion-title class="title">{{"Carrinho"}}</ion-title>
+        <ion-buttons end>
+            <button ion-button icon-only color="royal" class="header-btn-cart">
+                <ion-icon name="cart"></ion-icon>
+                <ion-badge class="carts" item-right color="danger">{{noOfItems}}</ion-badge>
+            </button>
+        </ion-buttons>
+    </ion-navbar>
+</ion-header>
+
+
+<ion-content [ngClass]="{bg:!isCarrinho()}">
+
+    <div *ngIf="!isCarrinho()">
+        <ion-row>
+            <ion-icon class="empty-cart" name="cart"></ion-icon>
+        </ion-row>
+        <h4>Seu carrinho está vazio.</h4>
+
+        <h6>Conheça nossa lista de restaurantes e escolha seus pratos favoritos!</h6>
+    </div>
+
+
+    <div *ngIf="isCarrinho()">
+        <ion-list class="cart-list" *ngFor="let data of Carrinho"><!-- item-list -->
+            <ion-item class="cart-item"><!-- item -->
+                <ion-row><!-- col-cancel  button -->
+                    <ion-col col-1><!-- col-cancel  button -->
+                        <ion-icon class="close-btn" ion-button icon only clear ios="ios-close-circle"
+                                  md="md-close-circle"
+                                  (click)="deleteItem(data.item.idProduto)">
+                        </ion-icon>
+                    </ion-col>
+                    <ion-col col-16><!-- col-for item-image and details -->
+                        <ion-row>
+
+                            <ion-col col-14>
+                                <p class="item-name" text-wrap>{{data.item.dsProduto}}</p>
+
+                                <ion-card class="adicional" *ngFor="let adicional of data.item.listaAdicional"><!-- item-list -->
+                                  <div style="float: left; width: 80%">
+                                      <p class="item-detail" style="font-size: 12px;" text-wrap>- {{adicional.descricao}}</p>
+                                  </div>
+                                  <div style="width: 20%">
+                                    <span style="font-size: 12px; color: #3c7508">+ {{adicional.dsValor}}</span>
+                                  </div>
+                                </ion-card>
+
+
+                                <div style="width: 100%; float:left;"><p class="item-detail" text-wrap>{{"Quantidade:"}} {{data.item.qtProduto}}</p></div>
+                                <span >
+							                     <p class="item-detail">Valor:
+                                     <span class="item-price">
+                                       <strong>{{data.item.vlProduto}}</strong>
+                                     </span>
+                                   </p>
+                                </span>
+
+                                <ion-row><!-- row-for count item -->
+                                    <div class="count">
+            							            <span class="item-count" (click)="remove(data)">
+            							              -
+            							            </span>
+
+                                      <span class="item-count show-count">
+            							             {{data.item.qtProduto}}
+            							            </span>
+
+                                      <span class="item-count" (click)="add(data)">
+            							              +
+            							            </span>
+                                    </div>
+                                </ion-row>
+                            </ion-col>
+                        </ion-row>
+                    </ion-col>
+                </ion-row>
+            </ion-item>
+        </ion-list>
+        <ion-row class="price-details">
+            <ion-col class="calculate" col-12>
+                <p class="bill-detail">{{"Subtotal"}} <span>R$ {{subTotal}}</span></p>
+
+                <hr>
+
+            </ion-col>
+        </ion-row><!-- row-bill-details -->
+        <!-- continue button -->
+        <ion-row>
+            <ion-col col-12>
+                <button class="btn" (click)="nav()" [disabled]="subTotal == null">{{"Realizar Pedido"}}</button>
+            </ion-col>
+        </ion-row>
+    </div>
+</ion-content>

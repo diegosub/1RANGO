@@ -1,0 +1,40 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Avaliações</ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="closeModal()"><img src="assets/img/close.png" style="height: 21px; width:21px; vertical-align: middle;"/></button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content class="fundo2">
+
+  <ion-card *ngFor="let avaliacao of Avaliacoes" style="padding: 10px; border-radius: 10px;">
+
+        <div style="font-family: calibri; color: gray; font-size: 16px;">
+          <div style="float:left; width: 100%;">
+
+            <div style="float: left; width: 80%; color: #666; font-size: smaller;">
+              <b>{{avaliacao.dsUsuario}}</b>
+            </div>
+            <div style="text-align: right; color: #DAA520;">
+              <img src="assets/img/star.png" style="height: 14px; width: 14px; display:inline;"/>
+              <b>{{avaliacao.vlAvaliacao}}</b>
+            </div>
+
+            <div style="color: #666; font-size: 12px;">
+              {{avaliacao.strDtCadastro}}
+            </div>
+
+            <div style="color: #666; font-size: smaller;">
+              {{avaliacao.dsAvaliacao}}
+            </div>
+          </div>
+        </div>
+
+  </ion-card>
+
+</ion-content>

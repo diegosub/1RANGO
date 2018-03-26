@@ -1,0 +1,64 @@
+<ion-header>
+    <ion-navbar hideBackButton="true">
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title></ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content class="login">
+    <img class="logo" src="assets/img/logo1rango.png">
+    <form [formGroup]="registration" (ngSubmit)="onSubmit()">
+        <ion-row>
+            <ion-col col-12>
+                <ion-item>
+                    <ion-label>{{"Nome:"}}</ion-label>
+                    <ion-input type="text" name="name" formControlName="name" maxlength="80" required=""></ion-input>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+
+        <ion-row>
+            <ion-col col-12>
+                <ion-item>
+                    <ion-label>{{"E-mail:"}}</ion-label>
+                    <ion-input type="email" name="email" formControlName="email" maxlength="100" required=""></ion-input>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+
+        <ion-row>
+            <ion-col col-12>
+                <ion-item>
+                    <ion-label>{{"Telefone:"}}</ion-label>
+                    <ion-input type="tel" name="mobileNo" id="telefone" formControlName="telefone" (keyup)="tel_mask(this)" maxlength="15"></ion-input>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+
+        <ion-row>
+            <ion-col col-12>
+                <ion-item>
+                    <ion-label>{{"Senha:"}}</ion-label>
+                    <ion-input type="password" name="password" id="password" maxlength="20" formControlName="password"></ion-input>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+
+        <ion-row>
+            <ion-col col-12>
+                <button class="login-btn" type="submit" [disabled]="!registration.valid" ion-button>{{"Cadastrar"}}
+                </button>
+            </ion-col>
+        </ion-row>
+    </form>
+
+    <ion-row>
+        <ion-col col-12>
+            <a (click)="navLogin()">
+                <p text-center>{{"ENTRAR AGORA !"}}</p>
+            </a>
+        </ion-col>
+    </ion-row>
+</ion-content>

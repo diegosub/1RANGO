@@ -1,0 +1,17 @@
+page-modal-bairro {
+  .fundo1 {
+    background: url("../assets/img/address-bg.jpg") no-repeat center;
+    background-size: cover;
+    color: $white;
+    .logo {
+      display: block;
+      margin: 0 auto;
+      margin-top: 4em;
+      padding-bottom: 2em;
+    }
+  }
+
+  .fundo2 {
+      background-color: #ead5b6 !important;
+  }
+}
