@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+	<session-factory>
+		<property name="connection.driver_class">org.postgresql.Driver</property>
+		<property name="connection.url">jdbc:postgresql://localhost:5432/umrango</property>
+		<property name="connection.username">postgres</property>
+		<property name="connection.password">postgres</property>
+		<property name="hibernate.connection.pool_size">25</property>
+		<property name="hibernate.format_sql">true</property>
+		<property name="hibernate.default_schema">rng</property>
+		<property name="connection.pool_size">1</property>
+		<property name="dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+		<property name="show_sql">true</property>
+		
+		<mapping class="br.com.rango.ngc.entity.Usuario"/>
+		<mapping class="br.com.rango.ngc.entity.Estado"/>
+		<mapping class="br.com.rango.ngc.entity.Grupo"/>
+		<mapping class="br.com.rango.ngc.entity.Cidade"/>
+		<mapping class="br.com.rango.ngc.entity.Categoria"/>
+		<mapping class="br.com.rango.ngc.entity.Estabelecimento"/>
+		<mapping class="br.com.rango.ngc.entity.EstabelecimentoBandeira"/>
+		<mapping class="br.com.rango.ngc.entity.EstabelecimentoHorario"/>
+		<mapping class="br.com.rango.ngc.entity.EstabelecimentoBairro"/>
+		<mapping class="br.com.rango.ngc.entity.EstabelecimentoImagem"/>
+		<mapping class="br.com.rango.ngc.entity.Segmento"/>
+		<mapping class="br.com.rango.ngc.entity.SegmentoAdicional"/>
+		<mapping class="br.com.rango.ngc.entity.SegmentoItem"/>
+		<mapping class="br.com.rango.ngc.entity.Produto"/>
+		<mapping class="br.com.rango.ngc.entity.Dominio"/>
+		<mapping class="br.com.rango.ngc.entity.Parametro"/>
+		<mapping class="br.com.rango.ngc.entity.SegmentoDia"/>
+		<mapping class="br.com.rango.ngc.entity.Bairro"/>
+		<mapping class="br.com.rango.ngc.entity.Endereco"/>
+		<mapping class="br.com.rango.ngc.entity.Favorito"/>
+		<mapping class="br.com.rango.ngc.entity.Pedido"/>
+		<mapping class="br.com.rango.ngc.entity.Contato"/>
+		<mapping class="br.com.rango.ngc.entity.RecuperaSenha"/>
+		<mapping class="br.com.rango.ngc.entity.PedidoProduto"/>
+		<mapping class="br.com.rango.ngc.entity.PedidoProdutoAdicional"/>
+		
+	</session-factory>
+</hibernate-configuration>
